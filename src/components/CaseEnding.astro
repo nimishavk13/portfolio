@@ -1,6 +1,7 @@
 ---
 // Frame 56 (Figma 4:126) – closes every case study (and the homepage)
 const LINKEDIN = "https://www.linkedin.com/in/nimisha-vijayraj";
+const BEHANCE = "https://www.behance.net/nimishavk";
 ---
 <section class="ending frame" aria-labelledby="ending-title">
   <span class="blur-glow ending__glow ending__glow--tr" aria-hidden="true"></span>
@@ -12,23 +13,31 @@ const LINKEDIN = "https://www.linkedin.com/in/nimisha-vijayraj";
     <strong>If this work speaks to you, I’d be glad to connect.</strong>
   </h2>
 
-  <ul class="ending__contacts" role="list">
-    <li class="abs" style="--x:387;--y:751;--d:120ms" data-reveal="rise">
+  <ul class="ending__contacts" role="list" style="--y:751">
+    <li style="--d:120ms" data-reveal="rise">
       <a href="mailto:nimishavkattutharayil@gmail.com">
         <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M12.6875 0.25C19.5566 0.25 25.125 5.81845 25.125 12.6875C25.125 14.4955 24.5303 15.9978 23.5088 16.9766C22.4804 17.962 21.0709 18.3513 19.7012 17.9551C18.7246 17.6726 17.876 17.0427 17.2188 16.1064C16.1108 17.7742 14.2157 18.875 12.0625 18.875C8.64524 18.875 5.875 16.1048 5.875 12.6875C5.875 9.27024 8.64524 6.5 12.0625 6.5C13.5386 6.5 14.8936 7.01819 15.957 7.88086C16.1486 7.3892 16.6528 7.06832 17.2012 7.13281C17.8525 7.20942 18.3188 7.79984 18.2422 8.45117C18.0828 9.80588 18.0859 10.9313 18.1953 11.8584H18.1943C18.1995 11.8976 18.2054 11.9373 18.21 11.9775L18.2793 12.4297C18.6725 14.6042 19.6875 15.479 20.3613 15.6738C20.867 15.82 21.4107 15.6982 21.8662 15.2617C22.3292 14.8178 22.75 13.9855 22.75 12.6875C22.75 7.13013 18.2448 2.625 12.6875 2.625C7.13013 2.625 2.625 7.13013 2.625 12.6875C2.625 18.2448 7.13013 22.75 12.6875 22.75C13.3433 22.75 13.875 23.2817 13.875 23.9375C13.875 24.5933 13.3433 25.125 12.6875 25.125C5.81845 25.125 0.25 19.5566 0.25 12.6875C0.25 5.81845 5.81845 0.25 12.6875 0.25ZM12.0625 8.875C9.95691 8.875 8.25 10.5819 8.25 12.6875C8.25 14.7931 9.95691 16.5 12.0625 16.5C14.1681 16.5 15.875 14.7931 15.875 12.6875C15.875 10.5819 14.1681 8.875 12.0625 8.875Z" fill="#1D59BB" stroke="#1D59BB" stroke-width="0.5"/></svg>
         nimishavkattutharayil@gmail.com
       </a>
     </li>
-    <li class="abs" style="--x:1007;--y:751;--d:200ms" data-reveal="rise">
+    <li style="--d:200ms" data-reveal="rise">
       <a href="tel:+918237933206">
         <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M4.87598 0.259766C6.02172 0.187061 7.15501 0.532076 8.06543 1.23145V1.23242C8.57455 1.62561 8.99862 2.11809 9.31055 2.68066C9.62245 3.24322 9.8161 3.86384 9.87988 4.50391C9.94364 5.14409 9.87647 5.79117 9.68164 6.4043C9.48679 7.01735 9.16866 7.58443 8.74707 8.07031L5.02441 12.3574C6.80859 15.769 9.59264 18.552 13.0039 20.3369L17.292 16.6162C17.7782 16.1949 18.3457 15.8771 18.959 15.6826C19.572 15.4882 20.2183 15.4205 20.8584 15.4844C21.4984 15.5483 22.1189 15.7419 22.6816 16.0537C23.2441 16.3655 23.7374 16.789 24.1309 17.2979V17.2988C24.8317 18.2083 25.1783 19.3413 25.1055 20.4873C25.0372 21.5617 24.6053 22.5788 23.8838 23.3721L23.7354 23.5273L23.584 23.6777L23.585 23.6787C23.1416 24.1298 22.6137 24.4895 22.0312 24.7363C21.449 24.9831 20.8238 25.1123 20.1914 25.1172H20.1895C19.8754 25.1172 19.5622 25.0844 19.2549 25.0205C16.9773 24.5606 14.7643 23.8249 12.665 22.8291L12.6553 22.8252L11.4092 22.1689L11.4043 22.166C7.95258 20.2491 5.1068 17.4032 3.19043 13.9512L3.1875 13.9453L2.54297 12.7119L2.51465 12.6572V12.6406C1.53012 10.5573 0.800216 8.36279 0.341797 6.10449V6.10352C0.187173 5.32763 0.228799 4.52525 0.462891 3.76953C0.697014 3.01383 1.11648 2.32896 1.68262 1.77637L1.83594 1.62598C2.65046 0.817806 3.73081 0.33252 4.87598 0.259766ZM20.626 17.8447C20.3072 17.813 19.9849 17.8461 19.6797 17.9434C19.3745 18.0405 19.0921 18.1999 18.8506 18.4102L15.3818 21.4189C16.7951 21.9626 18.2504 22.3906 19.7344 22.6943H19.7354C20.1246 22.7695 20.5264 22.7458 20.9043 22.626C21.2821 22.5061 21.6247 22.2937 21.8994 22.0078L21.9014 22.0049H21.9023L22.0527 21.8525L22.0537 21.8516C22.458 21.4467 22.7012 20.9088 22.7383 20.3379C22.7752 19.767 22.6035 19.2024 22.2549 18.749C22.0593 18.4952 21.8143 18.2835 21.5342 18.1279C21.2541 17.9725 20.9448 17.8765 20.626 17.8447ZM5.18262 2.62012C4.87351 2.61941 4.567 2.67902 4.28125 2.79688C3.99559 2.9147 3.73625 3.0883 3.51758 3.30664L3.51562 3.30762L3.3584 3.46289L3.35645 3.46582C3.06961 3.74058 2.85568 4.08241 2.73535 4.46094C2.61528 4.83873 2.59199 5.24065 2.66699 5.62988L2.79785 6.23535C3.08936 7.51056 3.47379 8.76262 3.94434 9.9834L6.9541 6.51562H6.95508C7.25191 6.17564 7.44433 5.75711 7.50977 5.31055C7.57519 4.86394 7.51009 4.40795 7.32324 3.99707C7.13639 3.58627 6.83559 3.23737 6.45605 2.99316C6.07661 2.74909 5.63475 2.61994 5.18359 2.62012H5.18262Z" fill="#1D59BB" stroke="#1D59BB" stroke-width="0.5"/></svg>
         8237933206
       </a>
     </li>
-    <li class="abs" style="--x:1339;--y:751;--d:280ms" data-reveal="rise">
+    {BEHANCE && (
+      <li style="--d:280ms" data-reveal="rise">
+        <a href={BEHANCE} target="_blank" rel="noopener">
+          <img src="/img/home/icon-behance.webp" width="30" height="30" alt="" />
+          Nimisha Vk<span class="sr-only"> on Behance (opens in a new tab)</span>
+        </a>
+      </li>
+    )}
+    <li style="--d:360ms" data-reveal="rise">
       <a href={LINKEDIN} target="_blank" rel="noopener">
-        <img src="/img/home/icon-behance.webp" width="30" height="30" alt="" />
-        Nimisha Vk<span class="sr-only"> (opens in a new tab)</span>
+        <svg class="ending__li" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="4" fill="#0A66C2"/><path d="M9.6 12.2h-3v9.6h3v-9.6Zm-1.5-4.8a1.7 1.7 0 1 0 0 3.5 1.7 1.7 0 0 0 0-3.5Zm13.7 8.6c0-2.6-.6-4.1-3.6-4.1-1.4 0-2.4.8-2.8 1.5h-.1v-1.2h-2.9v9.6h3v-4.8c0-1.3.2-2.5 1.8-2.5s1.6 1.5 1.6 2.6v4.7h3V16Z" fill="#fff"/></svg>
+        Nimisha Vk<span class="sr-only"> on LinkedIn (opens in a new tab)</span>
       </a>
     </li>
   </ul>
@@ -47,7 +56,11 @@ const LINKEDIN = "https://www.linkedin.com/in/nimisha-vijayraj";
     font-size: calc(48 * var(--px)); line-height: 1.5;
   }
   .ending__text strong { color: var(--blue); font-weight: 700; }
-  .ending__contacts { margin: 0; padding: 0; list-style: none; }
+  .ending__contacts {
+    position: absolute; left: 0; right: 0; top: calc(var(--y) * var(--px));
+    display: flex; justify-content: center; gap: calc(110 * var(--px));
+    margin: 0; padding: 0; list-style: none;
+  }
   .ending__contacts a {
     display: inline-flex; align-items: center; gap: calc(13 * var(--px));
     font-size: calc(24 * var(--px)); line-height: calc(36 * var(--px));
@@ -57,7 +70,7 @@ const LINKEDIN = "https://www.linkedin.com/in/nimisha-vijayraj";
   }
   .ending__contacts a:hover { color: var(--blue); border-color: currentColor; }
   .ending__contacts svg { width: calc(24 * var(--px)); height: calc(24 * var(--px)); flex: none; transition: transform var(--dur-fast) var(--ease-out); }
-  .ending__contacts img { width: calc(30 * var(--px)); height: calc(30 * var(--px)); flex: none; }
+  .ending__contacts img, .ending__li { width: calc(30 * var(--px)); height: calc(30 * var(--px)); flex: none; border-radius: calc(4 * var(--px)); }
   .ending__contacts a:hover svg { transform: rotate(-12deg) scale(1.08); }
 
   @media (max-width: 900px) {
@@ -66,9 +79,9 @@ const LINKEDIN = "https://www.linkedin.com/in/nimisha-vijayraj";
     .ending__glow--tr { left: auto; right: -35vw; top: -25vw; }
     .ending__glow--bl { left: -35vw; top: auto; bottom: -30vw; }
     .ending__text { font-size: clamp(20px, 5.4vw, 30px); }
-    .ending__contacts { margin-top: 48px; display: grid; gap: 6px; justify-items: center; }
+    .ending__contacts { position: static; margin-top: 48px; display: grid; gap: 6px; justify-items: center; }
     .ending__contacts a { min-height: 44px; font-size: 16px; gap: 10px; }
     .ending__contacts svg { width: 20px; height: 20px; }
-    .ending__contacts img { width: 24px; height: 24px; }
+    .ending__contacts img, .ending__li { width: 24px; height: 24px; }
   }
 </style>

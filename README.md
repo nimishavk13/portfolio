@@ -15,8 +15,10 @@ Built from the Figma file *Nimisha VK_UI-UX Portfolio_Project 1*. Static site (A
 
 Edit a file on GitHub (pencil icon → *Commit changes*) and Vercel redeploys in about a minute.
 
-When a case study changes a lot in Figma, regenerate it instead of hand-editing:
-export the portfolio page from Figma as PDF, then run `tools/build_cases.py` (see the notes at the top of that file).
+Case-study text comes straight from Figma (`tools/figma_text_*.json`): every text box with its exact
+characters, font, size, colour and position. For a small wording fix, edit the sentence in
+`src/data/cases/<project>.json`. For bigger Figma changes, re-export the text and re-run
+`tools/build_cases.py` (notes at the top of that file).
 
 ## Local preview
 
