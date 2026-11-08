@@ -67,7 +67,7 @@ const rings = [
     background: linear-gradient(168deg, #10182b 0%, #10182b 18%, #1d59bb 84%);
     /* design-px units: background covers, foreground fits */
     --ub: max(calc(100vw / 1920), calc(100svh / 1080));
-    --uf: min(calc(100vw / 1920), calc(100svh / 1080));
+    --uf: min(calc(var(--container) / 1920), calc((100svh - var(--nav-h)) / 1080));
   }
 
   /* ---------- background: orbs + rings on a covering 1920×1080 stage ---------- */

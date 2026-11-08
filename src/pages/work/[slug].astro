@@ -29,7 +29,9 @@ const ACCENT: Record<string, string> = {
 const next = nextProject(slug);
 ---
 <Base title={`${project.title} – UX case study · Nimisha Vk`} description={`${project.title}: ${project.summary} A UX case study by Nimisha Vk.`}>
-  {data.frames.filter((f) => f.nodes).map((f, i) => <CaseFrame frame={f} index={i} projectTitle={project.title} accent={ACCENT[slug]} />)}
+  <div style={`--page-bg:${data.frames[1]?.bg ?? "#fff"}`}>
+    {data.frames.filter((f) => f.nodes).map((f, i) => <CaseFrame frame={f} index={i} projectTitle={project.title} accent={ACCENT[slug]} />)}
+  </div>
   <NextProject project={next} />
   <CaseEnding />
 </Base>

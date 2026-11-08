@@ -126,11 +126,11 @@ def erase(img, boxes):
     arr = np.array(img).astype(np.int16)
     H, W = arr.shape[:2]
     allmask = np.zeros((H, W), np.uint8)
-    for x0, y0, x1, y1, _ in boxes:
+    for x0, y0, x1, y1, _, _k in boxes:
         allmask[max(0, int(y0 * SC) - 2):int(y1 * SC) + 2, max(0, int(x0 * SC) - 2):int(x1 * SC) + 2] = 1
     inp = np.zeros((H, W), np.uint8)
     out = arr.copy()
-    for x0, y0, x1, y1, cols in boxes:
+    for x0, y0, x1, y1, cols, kind in boxes:
         X0, Y0 = max(0, int(x0 * SC) - 3), max(0, int(y0 * SC) - 3)
         X1, Y1 = min(W, int(x1 * SC) + 3), min(H, int(y1 * SC) + 3)
         if X1 <= X0 or Y1 <= Y0: continue
@@ -144,7 +144,7 @@ def erase(img, boxes):
         flat = rest.std(axis=0).max() < 8
         if flat:
             out[Y0:Y1, X0:X1][m > 0] = np.median(rest, axis=0)
-        elif (y1 - y0) < 120:  # tight glyph box over artwork: rebuild the whole glyph area
+        elif kind == "glyph" and (y1 - y0) < 120:  # tight glyph box over artwork: rebuild the whole glyph area
             inp[Y0:Y1, X0:X1] = 1
         else:
             inp[Y0:Y1, X0:X1] = np.maximum(inp[Y0:Y1, X0:X1], m)
@@ -193,11 +193,16 @@ for slug, names in PROJECTS.items():
             gl = [g for g in GLYPHS if x - 4 <= (g[0] + g[2]) / 2 <= x + w + 4 and fy + y - 4 <= (g[1] + g[3]) / 2 <= fy + y + h + 4]
             nchars = sum(len(r["text"].replace(" ", "")) for l in lines for r in l["runs"])
             if gl and len(gl) >= nchars * 0.9:  # erase glyph by glyph, so markers, arcs and icons inside the box survive
-                for g in gl: boxes.append((g[0] - 1.5, g[1] - fy - 1, g[2] + 1.5, g[3] - fy + 1, cols))
-            elif all(r["fam"] == "League Spartan" for l in lines for r in l["runs"]):
-                boxes.append((x + w * 0.2, y + h * 0.15, x + w * 0.8, y + h * 0.6, cols))
+                for g in gl: boxes.append((g[0] - 1.5, g[1] - fy - 1, g[2] + 1.5, g[3] - fy + 1, cols, "glyph"))
+            if all(r["fam"] == "League Spartan" for l in lines for r in l["runs"]):
+                boxes.append((x + w * 0.2, y + h * 0.15, x + w * 0.8, y + h * 0.6, cols, "node"))
+            elif gl:  # second pass over the area the text actually covers: any ink left in the text colour
+                # from the box start (first glyphs of a run can be missing from the PDF text layer) to the text's end
+                x_end = max(g[2] for g in gl) + 6 if align == "L" else x + w + 2
+                x_start = x - 2 if align == "L" else min(x - 2, min(g[0] for g in gl) - 30)
+                boxes.append((x_start, y - 2, min(x + w + 2, x_end), y + h + 2, cols, "node"))
             else:
-                boxes.append((x - 2, y - 2, x + w + 2, y + h + 2, cols))
+                boxes.append((x - 2, y - 2, x + w + 2, y + h + 2, cols, "node"))
             size = max(r["size"] for l in lines for r in l["runs"])
             tnodes.append(dict(x=x, y=y, w=w, h=h, align={"L": "left", "C": "center", "R": "right", "J": "justify"}[align],
                                resize=resize, size=size, lines=lines))

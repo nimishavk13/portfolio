@@ -57,7 +57,7 @@ const connectors = [
 </section>
 
 <style>
-  .process { overflow: hidden; }
+  .process { overflow: visible; }
   .process__title {
     font-family: var(--font-figtree); font-weight: 800;
     font-size: calc(123 * var(--px)); line-height: calc(98 * var(--px)); letter-spacing: -0.025em;
@@ -112,7 +112,7 @@ const connectors = [
   :global(html:not(.js)) .connector path { stroke-dashoffset: 0; }
   :global(html:not(.js)) .dot { transform: none; }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1099px) {
     .process__title { font-size: clamp(44px, 12vw, 72px); line-height: 1.05; white-space: normal; margin-bottom: 30px; }
     .process > svg.abs:not(.process__spark) { position: absolute !important; opacity: 0.6; }
     .process > svg.abs:nth-of-type(1) { right: 0; left: auto; top: 18%; width: 30vw !important; }

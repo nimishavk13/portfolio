@@ -23,14 +23,14 @@ const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "";
 <style>
   .nav {
     position: fixed; inset: 0 0 auto 0; z-index: 50;
-    padding: 14px var(--gutter);
+    padding: 14px 0;
     pointer-events: none;
     transition: transform var(--dur-fast) var(--ease-out);
   }
   .nav.is-hidden { transform: translateY(-110%); }
   .nav__inner {
     pointer-events: auto;
-    max-width: 1820px; margin-inline: auto;
+    max-width: var(--container); margin-inline: auto;
     display: flex; align-items: center; justify-content: space-between; gap: 16px;
     padding: 8px 8px 8px 22px;
     border-radius: 999px;
@@ -62,6 +62,7 @@ const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "";
   .nav__back span { transition: transform var(--dur-fast) var(--ease-out); }
   .nav__back:hover span { transform: translateX(-4px); }
 
+  @media (max-width: 1099px) { .nav { padding-inline: var(--page-gutter); } .nav__inner { max-width: none; } }
   @media (max-width: 560px) {
     .nav__inner { padding-left: 16px; }
     .nav__name { font-size: 16px; }

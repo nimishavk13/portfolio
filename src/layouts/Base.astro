@@ -34,7 +34,7 @@ const {
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script is:inline>document.documentElement.classList.add("js");</script>
   </head>
-  <body>
+  <body class={navTone === "light" ? "has-nav-offset" : undefined}>
     <a class="skip-link" href="#main">Skip to content</a>
     <Nav tone={navTone} />
     <main id="main">

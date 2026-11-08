@@ -6,8 +6,7 @@
 */
 .frame {
   position: relative;
-  width: 100%;
-  max-width: 1920px;
+  width: var(--container);
   margin-inline: auto;
   height: calc(var(--fh, 1080) * var(--px));
 }
@@ -36,8 +35,8 @@
   pointer-events: none;
 }
 
-@media (max-width: 900px) {
-  .frame { height: auto; padding: 96px var(--gutter) 72px; }
+@media (max-width: 1099px) {
+  .frame { width: auto; height: auto; padding: 96px var(--gutter) 72px; }
   .abs { position: relative; left: auto; top: auto; width: auto !important; height: auto !important; }
   .section-title { font-size: clamp(44px, 12vw, 72px); line-height: 1.15; white-space: normal; }
 }

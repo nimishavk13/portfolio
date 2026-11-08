@@ -44,13 +44,13 @@ const geo = (o: Record<string, number>) => Object.entries(o).map(([k, v]) => `--
     width: calc(958 * var(--px)); height: calc(2 * var(--px)); background: #cbd6f3;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1099px) {
     .work__title { text-align: left; margin-bottom: 28px; }
     .work__grid { position: static; display: grid; gap: 48px; }
     .work__vdivider { display: none; }
     .work__hdivider { position: static; width: 100%; height: 1px; }
   }
-  @media (min-width: 640px) and (max-width: 900px) {
+  @media (min-width: 640px) and (max-width: 1099px) {
     .work__grid { grid-template-columns: 1fr 1fr; gap: 48px 22px; }
     .work__grid > :first-child, .work__hdivider { grid-column: 1 / -1; }
   }

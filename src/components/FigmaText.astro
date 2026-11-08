@@ -13,7 +13,7 @@ const FAMILY: Record<string, string> = {
   Parkinsans: "'Parkinsans', var(--font-poppins)", "League Spartan": "'League Spartan', var(--font-poppins)",
 };
 const flowSize = (s: number) => Math.round((0.36 * s + 9.5) * 10) / 10; // 19→16.3, 24→18.1, 40→23.9, 60→31.1, 96→44
-const px = (v: number) => (mode === "desk" ? `calc(${v} * var(--px))` : `${flowSize(v)}px`);
+const px = (v: number) => (mode === "desk" ? (v < 26 ? `max(calc(${v} * var(--px)), 13px)` : `calc(${v} * var(--px))`) : `${flowSize(v)}px`);
 // a one-line box with auto line height: Figma's box height *is* the line height
 const oneLine = n.lines.length === 1 && n.h < n.size * 1.9;
 const lineHeight = (r: Run) => {

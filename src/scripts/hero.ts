@@ -69,7 +69,7 @@ export function initHero() {
   const measure = () => {
     const vw = window.innerWidth, vh = sticky.clientHeight;
     unitB = Math.max(vw / 1920, vh / 1080);
-    unitF = fg.getBoundingClientRect().width / 1353 || Math.min(vw / 1920, vh / 1080);
+    unitF = fg.offsetWidth / 1353 || Math.min(vw / 1920, vh / 1080);
   };
 
   const readScroll = () => {

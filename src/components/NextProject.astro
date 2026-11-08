@@ -23,7 +23,7 @@ const { project } = Astro.props;
 
 <style>
   .next {
-    max-width: 1920px; margin: 0 auto; padding: calc(80 * var(--px)) calc(129 * var(--px)) calc(40 * var(--px));
+    width: var(--container); margin: 0 auto; padding: calc(80 * var(--px)) 0 calc(40 * var(--px));
     display: grid; gap: 28px; font-family: var(--font-figtree);
     border-top: 2px solid #cbd6f3;
   }
@@ -47,7 +47,7 @@ const { project } = Astro.props;
   .next__card:hover .c, .next__card:focus-visible .c { stroke: #fff; transform: translateX(4px); }
 
   @media (max-width: 1179px) {
-    .next { padding: 48px var(--gutter) 24px; }
+    .next { width: auto; padding: 48px var(--gutter) 24px; }
     .next__label { font-size: 16px; }
     .next__row { gap: 16px; }
     .next__img { width: 38%; border-radius: 18px; }

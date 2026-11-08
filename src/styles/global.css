@@ -1,7 +1,11 @@
 /* Tokens taken directly from the Figma file (Nimisha VK – UI/UX Portfolio) */
 :root {
-  /* 1 design px on the 1920-wide Figma canvas, capped at 1920 */
-  --px: calc(min(100vw, 1920px) / 1920);
+  /* Layout system: every page shares one gutter and one content container.
+     Figma frames are 1920 wide; 1 design px = container / 1920. */
+  --page-gutter: clamp(20px, 3.5vw, 64px);
+  --container: min(calc(100vw - 2 * var(--page-gutter)), 1440px);
+  --px: calc(var(--container) / 1920);
+  --nav-h: 88px; /* fixed nav: 14px + 60px bar + 14px */
 
   --blue: #1d59bb;
   --blue-light: #76b9ff;
@@ -26,14 +30,17 @@
   --dur: 900ms;
   --dur-fast: 280ms;
 
-  --gutter: 16px;
+  --gutter: var(--page-gutter);
 }
 
 *,
 *::before,
 *::after { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--nav-h) + 8px); }
+main { overflow-x: clip; } /* decorative glows may bleed past the container, never cause sideways scroll */
+/* pages that don't open on a full-bleed hero start below the fixed nav */
+body.has-nav-offset main { padding-top: var(--nav-h); }
 body {
   margin: 0;
   background: var(--white);
@@ -77,8 +84,7 @@ button { font: inherit; }
 /* The 1920 canvas – centred on very wide screens */
 .canvas {
   position: relative;
-  width: 100%;
-  max-width: 1920px;
+  width: var(--container);
   margin-inline: auto;
 }
 

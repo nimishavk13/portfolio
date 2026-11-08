@@ -31,7 +31,7 @@
 </section>
 
 <style>
-  .intro { overflow: hidden; }
+  .intro { overflow: visible; }
   .intro__glow {
     /* Figma: Ellipse 44, #1d59bb, layer blur 457 */
     left: calc(-286 * var(--px)); top: calc(-285 * var(--px));
@@ -92,7 +92,7 @@
   }
   .intro__based span { display: block; color: var(--blue); }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1099px) {
     .intro { display: flex; flex-direction: column; gap: 22px; }
     .intro__glow { left: -45vw; top: -40vw; width: 90vw; height: 90vw; filter: blur(80px); }
     .intro__label { align-self: flex-start; height: auto; padding: 8px 20px; border-width: 2px; border-radius: 40px; font-size: 16px; }

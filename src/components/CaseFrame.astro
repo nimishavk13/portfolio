@@ -69,7 +69,7 @@ const cardBg = (c: (typeof f.cards)[number]) =>
 const alt = `${f.title} – ${projectTitle}`;
 const imgMax = (w: number) => `max-width:min(100%, ${Math.round(Math.max(w * 1.3, 120))}px)`;
 ---
-<section class={`cf${f.visual ? " cf--visual" : ""}`} id={`f${f.id}`} aria-label={f.title || undefined}
+<section class={`cf${f.visual ? " cf--visual" : ""}${isCover ? " cf--cover" : ""}`} id={`f${f.id}`} aria-label={f.title || undefined}
   style={`--fh:${f.h};--bgc:${f.bg};--accent:${accent}`}>
 
   <div class="cf__desk">
@@ -78,7 +78,9 @@ const imgMax = (w: number) => `max-width:min(100%, ${Math.round(Math.max(w * 1.3
       width="1920" height={Math.round(f.h)} alt={f.visual ? alt : ""}
       loading={index < 1 ? "eager" : "lazy"} decoding="async" fetchpriority={index < 1 ? "high" : "auto"} />
     <div class="cf__text">
-      {f.nodes.map((n) => <FigmaText node={n} mode="desk" tag={n === titleNode ? HeadingTag : undefined} />)}
+      {f.visual
+        ? <HeadingTag class="sr-only">{f.title}</HeadingTag>
+        : f.nodes.map((n) => <FigmaText node={n} mode="desk" tag={n === titleNode ? HeadingTag : undefined} />)}
     </div>
   </div>
 
@@ -116,8 +118,13 @@ const imgMax = (w: number) => `max-width:min(100%, ${Math.round(Math.max(w * 1.3
 </section>
 
 <style>
-  .cf { position: relative; background: #fff; }
-  .cf__desk { position: relative; max-width: 1920px; margin-inline: auto; height: calc(var(--fh) * var(--px)); overflow: hidden; }
+  /* the frame's own background runs edge to edge; its content sits in the shared container */
+  .cf { position: relative; background: var(--bgc); }
+  .cf__desk { position: relative; width: var(--container); margin-inline: auto; height: calc(var(--fh) * var(--px)); overflow: hidden; }
+  /* the cover is a photo-led composition: present it as a card inside the margins */
+  .cf--cover { background: var(--page-bg, #fff); padding-top: 12px; }
+  @media (max-width: 1179px) { .cf--cover { padding-top: 0; background: var(--bgc); } .cf--cover .cf__desk { border-radius: 0; } }
+  .cf--cover .cf__desk { border-radius: calc(36 * var(--px)); }
   .cf__art { position: absolute; inset: 0; width: 100%; height: 100%; }
   .cf__text { position: absolute; inset: 0; }
   .cf__flow { display: none; }
@@ -126,7 +133,7 @@ const imgMax = (w: number) => `max-width:min(100%, ${Math.round(Math.max(w * 1.3
     .cf__desk { display: none; }
     .cf__flow { display: block; background: var(--bgc); padding: 52px var(--gutter) 40px; }
     .cf__flow > * { max-width: 760px; margin-inline: auto; }
-    .cf:first-of-type .cf__flow { padding-top: 96px; }
+    .cf--cover .cf__flow { padding-top: 28px; }
     .cf__h {
       display: flex; align-items: center; gap: 12px;
       font-family: var(--font-poppins); font-weight: 700; font-size: clamp(24px, 6.4vw, 34px); line-height: 1.2;
