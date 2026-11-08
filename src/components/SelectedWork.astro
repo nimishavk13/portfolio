@@ -1,0 +1,57 @@
+---
+// Frame 4 (Figma 4:4638) – Selected work
+import ProjectCard from "./ProjectCard.astro";
+import { getProject } from "../data/projects";
+const geo = (o: Record<string, number>) => Object.entries(o).map(([k, v]) => `--${k}:${v}`).join(";");
+---
+<section class="work frame" id="work" style="--fh:2011" aria-labelledby="work-title">
+  <h2 class="abs section-title work__title" id="work-title" style="--x:1004;--y:50;--w:866" data-reveal="rise">
+    Selected <span class="work__grad">work</span>
+  </h2>
+
+  <div class="work__grid">
+    <ProjectCard project={getProject("little-roots")} variant="feature"
+      style={`left:calc(129*var(--px));top:calc(305*var(--px));width:calc(1662*var(--px));height:calc(724*var(--px));${geo({ iw: 1662, ih: 611, ir: 56, ts: 85.5, tl: 96, ss: 35, aw: 82, ax: 1577, ay: 642 })}`} />
+
+    <ProjectCard project={getProject("hormona")} variant="tall" delay={80}
+      style={`left:calc(85*var(--px));top:calc(1136*var(--px));width:calc(684*var(--px));height:calc(779*var(--px));${geo({ iw: 684, ih: 633, ir: 50, ts: 76.5, tl: 80, ss: 37, aw: 86, ax: 594, ay: 674 })}`} />
+
+    <span class="work__vdivider" aria-hidden="true"></span>
+
+    <ProjectCard project={getProject("mentora")} variant="side" delay={160}
+      style={`left:calc(860*var(--px));top:calc(1136*var(--px));width:calc(1001*var(--px));height:calc(344*var(--px));${geo({ iw: 582, ih: 344, ir: 50, ts: 66, tl: 80, ss: 37, aw: 77, ax: 626, ay: 248, bw: 375, sg: 12 })}`} />
+
+    <span class="work__hdivider" aria-hidden="true"></span>
+
+    <ProjectCard project={getProject("yeola-paithani")} variant="side" delay={240}
+      style={`left:calc(860*var(--px));top:calc(1567*var(--px));width:calc(1001*var(--px));height:calc(349*var(--px));${geo({ iw: 582, ih: 349, ir: 50, ts: 67, tl: 62, ss: 37, aw: 77, ax: 626, ay: 248, bw: 349, sg: 12 })}`} />
+  </div>
+</section>
+
+<style>
+  .work__title { text-align: center; }
+  .work__grad {
+    background: linear-gradient(90deg, #1d59bb 88%, #76b9ff 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .work__grid { position: absolute; inset: 0; }
+  .work__vdivider {
+    position: absolute; left: calc(813 * var(--px)); top: calc(1135 * var(--px));
+    width: calc(2 * var(--px)); height: calc(773 * var(--px)); background: #afc7f9;
+  }
+  .work__hdivider {
+    position: absolute; left: calc(860 * var(--px)); top: calc(1524 * var(--px));
+    width: calc(958 * var(--px)); height: calc(2 * var(--px)); background: #cbd6f3;
+  }
+
+  @media (max-width: 900px) {
+    .work__title { text-align: left; margin-bottom: 28px; }
+    .work__grid { position: static; display: grid; gap: 48px; }
+    .work__vdivider { display: none; }
+    .work__hdivider { position: static; width: 100%; height: 1px; }
+  }
+  @media (min-width: 640px) and (max-width: 900px) {
+    .work__grid { grid-template-columns: 1fr 1fr; gap: 48px 22px; }
+    .work__grid > :first-child, .work__hdivider { grid-column: 1 / -1; }
+  }
+</style>

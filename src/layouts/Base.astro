@@ -1,0 +1,48 @@
+---
+import "@fontsource/poppins/400.css";
+import "@fontsource/poppins/700.css";
+import "@fontsource/figtree/400.css";
+import "@fontsource/figtree/700.css";
+import "@fontsource/figtree/800.css";
+import "../styles/global.css";
+import Nav from "../components/Nav.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  /** "dark" when the page opens on a dark section (homepage hero) */
+  navTone?: "dark" | "light";
+  extraFonts?: string[];
+}
+const {
+  title,
+  description = "Nimisha Vk – UI/UX designer based in Pune, India. Selected work: Little Roots, Hormona, Mentora and Yeola Paithani.",
+  navTone = "light",
+} = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/img/home/work-little-roots.webp" />
+    <meta name="theme-color" content="#10182b" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>document.documentElement.classList.add("js");</script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Nav tone={navTone} />
+    <main id="main">
+      <slot />
+    </main>
+    <script>
+      import { initReveal } from "../scripts/reveal";
+      initReveal();
+    </script>
+  </body>
+</html>

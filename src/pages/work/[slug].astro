@@ -1,0 +1,35 @@
+---
+import Base from "../../layouts/Base.astro";
+import CaseFrame from "../../components/CaseFrame.astro";
+import CaseEnding from "../../components/CaseEnding.astro";
+import NextProject from "../../components/NextProject.astro";
+import { projects, getProject, nextProject } from "../../data/projects";
+import type { CaseData } from "../../data/case-types";
+import "@fontsource/poppins/500.css";
+import "@fontsource/poppins/600.css";
+import "@fontsource/poppins/900-italic.css";
+import "@fontsource/figtree/600.css";
+import "@fontsource/parkinsans/700.css";
+import "@fontsource/league-spartan/700.css";
+import "../../styles/frame.css";
+
+const cases = import.meta.glob<{ default: CaseData }>("../../data/cases/*.json", { eager: true });
+export function getStaticPaths() {
+  const built = import.meta.glob("../../data/cases/*.json", { eager: true });
+  return projects
+    .filter((p) => `../../data/cases/${p.slug}.json` in built)
+    .map((p) => ({ params: { slug: p.slug } }));
+}
+const { slug } = Astro.params as { slug: string };
+const project = getProject(slug);
+const data: CaseData = cases[`../../data/cases/${slug}.json`].default;
+const ACCENT: Record<string, string> = {
+  "little-roots": "#2f5d3a", mentora: "#1d59bb", hormona: "#a3426f", "yeola-paithani": "#6b1d3c",
+};
+const next = nextProject(slug);
+---
+<Base title={`${project.title} – UX case study · Nimisha Vk`} description={`${project.title}: ${project.summary} A UX case study by Nimisha Vk.`}>
+  {data.frames.map((f, i) => <CaseFrame frame={f} index={i} projectTitle={project.title} accent={ACCENT[slug]} />)}
+  <NextProject project={next} />
+  <CaseEnding />
+</Base>

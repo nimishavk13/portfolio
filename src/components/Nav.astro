@@ -1,0 +1,97 @@
+---
+interface Props { tone?: "dark" | "light"; back?: boolean }
+const { tone = "light" } = Astro.props;
+const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "";
+---
+<header class="nav" data-tone={tone} data-nav>
+  <nav class="nav__inner" aria-label="Main">
+    <a class="nav__name" href="/">Nimisha Vk</a>
+    <ul class="nav__links" role="list">
+      {isHome ? (
+        <>
+          <li><a href="#about">About</a></li>
+          <li><a href="#work">Work</a></li>
+        </>
+      ) : (
+        <li><a href="/#work" class="nav__back"><span aria-hidden="true">←</span> All work</a></li>
+      )}
+      <li><a href="mailto:nimishavkattutharayil@gmail.com" class="nav__cta">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .nav {
+    position: fixed; inset: 0 0 auto 0; z-index: 50;
+    padding: 14px var(--gutter);
+    pointer-events: none;
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+  .nav.is-hidden { transform: translateY(-110%); }
+  .nav__inner {
+    pointer-events: auto;
+    max-width: 1820px; margin-inline: auto;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 8px 8px 8px 22px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.82);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 0 0 1px rgba(29, 89, 187, 0.12);
+    transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast);
+  }
+  .nav[data-tone="dark"] .nav__inner {
+    background: rgba(16, 24, 43, 0.35);
+    color: #fff;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18);
+  }
+  .nav__name {
+    font-weight: 700; font-size: 18px; text-decoration: none; letter-spacing: -0.01em;
+  }
+  .nav__links { display: flex; align-items: center; gap: 4px; margin: 0; padding: 0; list-style: none; }
+  .nav__links a {
+    display: inline-flex; align-items: center; gap: 6px;
+    min-height: 44px; padding: 0 16px; border-radius: 999px;
+    font-size: 15px; text-decoration: none;
+    transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast);
+  }
+  .nav__links a:hover { background: rgba(29, 89, 187, 0.1); }
+  .nav[data-tone="dark"] .nav__links a:hover { background: rgba(255, 255, 255, 0.14); }
+  .nav__cta { background: var(--blue); color: #fff !important; }
+  .nav__links .nav__cta:hover { background: var(--blue-ui); }
+  .nav__back span { transition: transform var(--dur-fast) var(--ease-out); }
+  .nav__back:hover span { transform: translateX(-4px); }
+
+  @media (max-width: 560px) {
+    .nav__inner { padding-left: 16px; }
+    .nav__name { font-size: 16px; }
+    .nav__links a { padding: 0 12px; font-size: 14px; }
+    .nav__links li:has(a[href="#about"]) { display: none; }
+  }
+</style>
+
+<script>
+  // Tone follows whatever section sits under the nav; hides on scroll-down, returns on scroll-up.
+  const nav = document.querySelector<HTMLElement>("[data-nav]");
+  if (nav) {
+    const darkSections = document.querySelectorAll<HTMLElement>("[data-nav-dark]");
+    let lastY = window.scrollY;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const y = window.scrollY;
+      let dark = false;
+      darkSections.forEach((s) => {
+        const r = s.getBoundingClientRect();
+        if (r.top <= 40 && r.bottom > 40) dark = true;
+      });
+      nav.dataset.tone = dark ? "dark" : "light";
+      const goingDown = y > lastY && y > 400;
+      nav.classList.toggle("is-hidden", goingDown && !nav.contains(document.activeElement));
+      lastY = y;
+    };
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    nav.addEventListener("focusin", () => nav.classList.remove("is-hidden"));
+    update();
+  }
+</script>
