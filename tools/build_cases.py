@@ -152,10 +152,20 @@ def erase(img, boxes):
     if inp.any(): out = cv2.inpaint(out, inp * 255, 4, cv2.INPAINT_TELEA)
     return Image.fromarray(out)
 
-def pick_card(cards, x, y, area=0):
-    """Smallest card under the point; of near-identical stacked shapes, the one painted last (on top)."""
+def _lum(hexc):
+    v = [int(hexc[i:i + 2], 16) / 255 for i in (1, 3, 5)]
+    v = [c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4 for c in v]
+    return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2]
+
+def contrast(a, b):
+    la, lb = sorted((_lum(a), _lum(b)), reverse=True)
+    return (la + 0.05) / (lb + 0.05)
+
+def pick_card(cards, x, y, area=0, text_color=None):
+    """Smallest card under the point that the text is readable on; of stacked shapes, the one painted last."""
     hits = [ci for ci, c in enumerate(cards)
-            if c["x"] - 3 <= x <= c["x"] + c["w"] + 3 and c["y"] - 3 <= y <= c["y"] + c["h"] + 3 and c["w"] * c["h"] > area * 1.05]
+            if c["x"] - 3 <= x <= c["x"] + c["w"] + 3 and c["y"] - 3 <= y <= c["y"] + c["h"] + 3 and c["w"] * c["h"] > area * 1.05
+            and (text_color is None or contrast(text_color, c["fill"]) >= 2)]
     if not hits: return None
     smallest = min(cards[ci]["w"] * cards[ci]["h"] for ci in hits)
     return max(ci for ci in hits if cards[ci]["w"] * cards[ci]["h"] <= smallest * 2)
@@ -199,7 +209,7 @@ for slug, names in PROJECTS.items():
                     t["href"] = links[li]; li += 1
                 for l in t["lines"]:
                     for r in l["runs"]: r.pop("link", None)
-                t["card"] = pick_card(cards, t["x"] + min(t["w"], 600) / 2, t["y"] + min(t["h"], 200) / 2)
+                t["card"] = pick_card(cards, t["x"] + min(t["w"], 600) / 2, t["y"] + min(t["h"], 200) / 2, 0, t["lines"][0]["runs"][0]["color"])
             for im in prev["images"]:
                 im["card"] = pick_card(cards, im["x"] + im["w"] / 2, im["y"] + im["h"] / 2, im["w"] * im["h"])
             out_frames.append(dict(prev, nodes=tnodes))
@@ -228,9 +238,16 @@ for slug, names in PROJECTS.items():
         def card_of(x, y, area=0):
             return pick_card(cards, x, y, area)
         for t in tnodes:
-            t["card"] = card_of(t["x"] + min(t["w"], 600) / 2, t["y"] + min(t["h"], 200) / 2, 0)
+            t["card"] = pick_card(cards, t["x"] + min(t["w"], 600) / 2, t["y"] + min(t["h"], 200) / 2, 0, t["lines"][0]["runs"][0]["color"])
 
         kept = []
+        # phone crops: the live text isn't drawn over them, so rebuild the artwork under every text box
+        bg_ph = bg
+        if not visual and tnodes:
+            a = np.array(bg); m = np.zeros(a.shape[:2], np.uint8)
+            for t in tnodes:
+                m[max(0, int((t["y"] - 3) * SC)):int((t["y"] + t["h"] + 3) * SC), max(0, int((t["x"] - 3) * SC)):int((t["x"] + t["w"] + 3) * SC)] = 255
+            bg_ph = Image.fromarray(cv2.inpaint(a, m, 6, cv2.INPAINT_TELEA))
         if not visual:
             for k, im in sorted(enumerate(images), key=lambda t: -(t[1]["bbox"][2] - t[1]["bbox"][0]) * (t[1]["bbox"][3] - t[1]["bbox"][1])):
                 x0, y0, x1, y1 = im["bbox"]
@@ -239,7 +256,7 @@ for slug, names in PROJECTS.items():
                 w, h = x1 - x0, y1 - y0
                 if w * h < 9000 or w < 60 or h < 60 or (w > 1880 and h > fh - 20): continue
                 y = y0 - fy
-                crop = bg.crop((round(x0 * SC), round(y * SC), round(x1 * SC), round((y + h) * SC)))
+                crop = bg_ph.crop((round(x0 * SC), round(y * SC), round(x1 * SC), round((y + h) * SC)))
                 dt = detail(crop)
                 a = np.array(crop.resize((64, 64))).reshape(-1, 3).astype(int) // 12
                 dom = np.unique(a, axis=0, return_counts=True)[1].max() / len(a)
