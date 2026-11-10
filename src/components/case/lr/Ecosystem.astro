@@ -1,0 +1,44 @@
+---
+/* Little Roots: kit, sensor and app on one connected path, with the sensors and kit contents beside it. */
+const v = (n: string) => `/img/v2/${n}.webp`;
+const nodes = [
+  { img: v("lr-eco-kit"), w: 495, h: 371, title: "Physical gardening kit", desc: "A hands-on kit that introduces children to gardening through simple and fun activities." },
+  { img: v("lr-eco-sensor"), w: 488, h: 366, title: "Sensor system", desc: "Collects real-time data about the plant’s environment using an Arduino Uno." },
+  { img: v("lr-eco-app"), w: 526, h: 414, title: "Digital app", desc: "A playful, guided experience that helps children care for their plants, track growth and explore activities." },
+];
+const sensors = [["Soil moisture", "drop"], ["Temperature & humidity (DHT11)", "temp"], ["Light intensity (LDR)", "sun"]];
+const kit = ["Planter pot", "Soil pods", "Seed packets", "Instruction manual", "Convertible packaging", "Sensor device"];
+const journey = ["Plant", "Observe", "Understand", "Take action", "Track growth", "Celebrate"];
+const ic: Record<string, string> = {
+  drop: '<path d="M12 3c3 4 6 7.2 6 10.5A6 6 0 0 1 6 13.5C6 10.2 9 7 12 3z"/>',
+  temp: '<path d="M10 14.5V5a2 2 0 1 1 4 0v9.5a4 4 0 1 1-4 0z"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+};
+---
+<div class="eco">
+  <div class="eco__intro" data-reveal>
+    <h3>One connected <mark class="hl">gardening experience</mark></h3>
+    <p>Little Roots brings together a physical gardening kit, a sensor-based monitoring system, an AI model and a digital app to help children learn about plants while actually caring for them.</p>
+    <div class="eco__journey">
+      <p class="eco__jt">The overall journey</p>
+      <ol role="list">{journey.map((j, i) => <li data-journey style={`--i:${i}`}><span>{String(i + 1).padStart(2, "0")}</span>{j}</li>)}</ol>
+    </div>
+  </div>
+  <ol class="eco__chain" role="list" data-chain>
+    <svg class="eco__wire" viewBox="0 0 40 600" preserveAspectRatio="none" aria-hidden="true"><path data-wire pathLength="1" d="M20 0 C 0 100, 40 200, 20 300 S 0 500, 20 600" /></svg>
+    {nodes.map((n, i) => (
+      <li class="eco__node" data-node style={`--i:${i}`}>
+        <img src={n.img} alt="" width={n.w} height={n.h} loading="lazy" decoding="async" />
+        <div><h4>{n.title}</h4><p>{n.desc}</p></div>
+        {i < 2 && <span class="eco__pulse" aria-hidden="true"></span>}
+      </li>
+    ))}
+  </ol>
+  <aside class="eco__side" data-reveal>
+    <h4>Sensors used</h4>
+    <ul role="list">{sensors.map(([s, k]) => <li><svg viewBox="0 0 24 24" aria-hidden="true" set:html={ic[k]} />{s}</li>)}</ul>
+    <hr />
+    <h4>Kit includes</h4>
+    <ul role="list" class="eco__kit">{kit.map((k) => <li>{k}</li>)}</ul>
+  </aside>
+</div>

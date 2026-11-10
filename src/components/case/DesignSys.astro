@@ -1,0 +1,30 @@
+---
+interface Props { colors: { hex: string; name: string }[]; fonts: { name: string; css: string }[] }
+const { colors, fonts } = Astro.props;
+const lum = (hex: string) => {
+  const n = parseInt(hex.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255;
+  return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+};
+const scale = [["Heading 1", 36], ["Heading 2", 32], ["Heading 3", 28], ["Heading 4", 16]] as const;
+---
+<div class="ds">
+  <ul class="ds__colors" role="list">
+    {colors.map((c, i) => (
+      <li class="sw" data-swatch style={`--c:${c.hex};--fg:${lum(c.hex) > 0.6 ? "#0b0b0f" : "#fff"};--i:${i}`}>
+        <span class="sw__name">{c.name}</span>
+        <button class="sw__hex" type="button" data-copy={c.hex} aria-label={`Copy ${c.name} colour ${c.hex}`}><span data-copy-label>{c.hex}</span></button>
+      </li>
+    ))}
+  </ul>
+  <div class={`ds__type ds__type--${fonts.length}`}>
+    {fonts.map((f) => (
+      <div class="ty" data-reveal style={`--ff:${f.css}`}>
+        <p class="ty__aa" aria-hidden="true">Aa</p>
+        <div>
+          <p class="ty__name">{f.name}<small>Google Fonts</small></p>
+          <ul role="list">{scale.map(([n, s]) => <li><span style={`font-size:${Math.min(s, 30)}px`}>{n}</span><small>{s} px</small></li>)}</ul>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

@@ -1,0 +1,33 @@
+---
+const v = (n: string) => `/img/v2/${n}.webp`;
+const scores: [string, number][] = [["P1", 75], ["P2", 67.5], ["P3", 87.5], ["P4", 60], ["P5", 72.5]];
+---
+<div class="sus">
+  <div class="sus__top">
+    <div data-reveal>
+      <p class="b-lead">A usability evaluation using the <strong>System Usability Scale (SUS)</strong> to understand how easy, engaging and effective the app was for children aged 5–12.</p>
+      <dl class="sus__meta">
+        <div><dt>Method</dt><dd>SUS, a standardised questionnaire measuring usability and ease of use.</dd></div>
+        <div><dt>Setting</dt><dd>iPad, child alone with the app and a parent nearby.</dd></div>
+        <div><dt>Participants</dt><dd>Five children aged 5 to 11.</dd></div>
+      </dl>
+    </div>
+    <img class="sus__img" src={v("lr-testing")} alt="" width="1400" height="851" loading="lazy" data-reveal="scale" />
+  </div>
+  <div class="sus__res" data-sus>
+    <div class="sus__bars">
+      <p class="sus__h">SUS results</p>
+      <ul role="list">
+        {scores.map(([p, s]) => (
+          <li><span>{p}</span><span class="sus__track"><span class="sus__fill" style={`--w:${s}%`} data-sus-fill></span></span><b>{s.toFixed(1)}</b></li>
+        ))}
+      </ul>
+    </div>
+    <div class="sus__mean">
+      <p class="sus__ml">Mean SUS score</p>
+      <p class="sus__score"><span data-count="72.5">72.5</span></p>
+      <p class="sus__grade">Grade B · Good</p>
+      <p class="sus__txt">A score of 72.5 indicates good usability, suggesting the app was well received by the children.</p>
+    </div>
+  </div>
+</div>

@@ -1,37 +1,60 @@
 ---
 import Base from "../../layouts/Base.astro";
-import CaseFrame from "../../components/CaseFrame.astro";
-import CaseEnding from "../../components/CaseEnding.astro";
-import NextProject from "../../components/NextProject.astro";
+import CaseHero from "../../components/case/CaseHero.astro";
+import SectionNav from "../../components/case/SectionNav.astro";
+import Block from "../../components/case/Block.astro";
+import NextProject from "../../components/case/NextProject.astro";
 import { projects, getProject, nextProject } from "../../data/projects";
-import type { CaseData } from "../../data/case-types";
-import "@fontsource/poppins/500.css";
-import "@fontsource/poppins/600.css";
-import "@fontsource/poppins/900-italic.css";
-import "@fontsource/figtree/600.css";
-import "@fontsource/parkinsans/700.css";
-import "@fontsource/league-spartan/700.css";
-import "../../styles/frame.css";
+import type { CaseStudy } from "../../data/case-types";
+import "@fontsource/baloo-2/600.css";
+import "@fontsource/baloo-2/700.css";
+import "@fontsource/baloo-2/800.css";
+import "@fontsource/mali/500.css";
+import "@fontsource/mali/600.css";
+import "@fontsource/outfit/500.css";
+import "@fontsource/outfit/600.css";
+import "@fontsource/outfit/700.css";
+import "@fontsource/nunito/500.css";
+import "@fontsource/nunito/700.css";
+import "@fontsource/nunito/800.css";
+import "../../styles/case.css";
 
-const cases = import.meta.glob<{ default: CaseData }>("../../data/cases/*.json", { eager: true });
 export function getStaticPaths() {
-  const built = import.meta.glob("../../data/cases/*.json", { eager: true });
-  return projects
-    .filter((p) => `../../data/cases/${p.slug}.json` in built)
-    .map((p) => ({ params: { slug: p.slug } }));
+  return projects.map((p) => ({ params: { slug: p.slug } }));
 }
+const mods = import.meta.glob<{ default: CaseStudy }>("../../data/cases/*.ts", { eager: true });
 const { slug } = Astro.params as { slug: string };
-const project = getProject(slug);
-const data: CaseData = cases[`../../data/cases/${slug}.json`].default;
-const ACCENT: Record<string, string> = {
-  "little-roots": "#2f5d3a", mentora: "#1d59bb", hormona: "#a3426f", "yeola-paithani": "#6b1d3c",
-};
+const p = getProject(slug);
+const cs = mods[`../../data/cases/${slug}.ts`].default;
 const next = nextProject(slug);
+const style = [
+  `--p:${p.color}`, `--ps:${p.soft}`, `--pi:${p.ink}`,
+  `--pp:${cs.theme.pop}`, `--pd:${cs.theme.deep}`, `--pt:${cs.theme.tint}`,
+  `--pf:${cs.fonts.display}`, `--pb:${cs.fonts.body}`,
+].join(";");
 ---
-<Base title={`${project.title} – UX case study · Nimisha Vk`} description={`${project.title}: ${project.summary} A UX case study by Nimisha Vk.`}>
-  <div style={`--page-bg:${data.frames[1]?.bg ?? "#fff"}`}>
-    {data.frames.filter((f) => f.nodes).map((f, i) => <CaseFrame frame={f} index={i} projectTitle={project.title} accent={ACCENT[slug]} />)}
+<Base title={`${p.title} · ${p.type} · Nimisha Vk`} description={`${p.title}: ${p.summary} ${p.type} by Nimisha Vk.`} image={p.image} theme={p.color}>
+  <div class={`case case--${slug}`} style={style}>
+    <CaseHero project={p} facts={cs.facts} />
+    <SectionNav sections={cs.sections} />
+    {cs.sections.map((s, i) => (
+      <section class="cs" id={s.id} data-cs aria-labelledby={`${s.id}-h`}>
+        <div class="wrap">
+          <header class="cs__head">
+            <p class="cs__n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</p>
+            <h2 class="cs__title" id={`${s.id}-h`} data-reveal><i class="tab" aria-hidden="true"></i>{s.title}</h2>
+            {s.sub && <p class="cs__sub" data-reveal style="--d:80ms"><span aria-hidden="true"></span>{s.sub}</p>}
+          </header>
+          <div class="cs__body">
+            {s.blocks.map((b) => <Block block={b} slug={slug} />)}
+          </div>
+        </div>
+      </section>
+    ))}
   </div>
   <NextProject project={next} />
-  <CaseEnding />
+  <script>
+    import { initCase } from "../../scripts/case";
+    initCase();
+  </script>
 </Base>

@@ -1,0 +1,41 @@
+---
+const v = (n: string) => `/img/v2/${n}.webp`;
+const steps = [
+  { img: "lr-how1", w: 692, h: 461, t: "Set up the kit", d: "Unbox the kit and get everything ready to plant." },
+  { img: "lr-how2", w: 582, h: 443, t: "Plant the seeds", d: "Add a soil pod, sow the seeds and prepare the planter." },
+  { img: "lr-how3", w: 472, h: 472, t: "Track & care", d: "The sensor tracks temperature, humidity, soil moisture and light." },
+  { img: "lr-how4", w: 569, h: 379, t: "Learn & grow", d: "Real-time updates, care tips and fun activities on the app." },
+  { img: "lr-how5", w: 454, h: 465, t: "Harvest & celebrate", d: "Watch the plant grow, harvest the produce and celebrate progress." },
+];
+---
+<div class="how">
+  <ol class="how__steps" role="list" data-how>
+    <svg class="how__line" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true"><path data-how-path pathLength="1" d="M40 40 C 120 0, 180 0, 240 30 S 380 60, 440 30 S 580 0, 640 30 S 780 60, 840 30 S 940 10, 980 30" /></svg>
+    {steps.map((s, i) => (
+      <li data-how-step style={`--i:${i}`}>
+        <span class="how__n">0{i + 1}</span>
+        <h3>{s.t}</h3>
+        <p>{s.d}</p>
+        <img src={v(s.img)} alt="" width={s.w} height={s.h} loading="lazy" decoding="async" />
+      </li>
+    ))}
+  </ol>
+  <div class="link" data-reveal>
+    <div class="link__copy">
+      <h3>The connected <mark class="hl">ecosystem</mark></h3>
+      <p>A seamless link between the physical kit and the digital experience.</p>
+    </div>
+    <div class="link__flow" aria-label="Physical kit sends real-time data to the app experience">
+      <figure><img src={v("lr-how3")} alt="" width="472" height="472" loading="lazy" /><figcaption>Physical kit</figcaption></figure>
+      <span class="link__data" aria-hidden="true"><i></i><i></i><i></i></span>
+      <figure class="link__cloud"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 36h20a8 8 0 0 0 1-16 11 11 0 0 0-21-2 9 9 0 0 0 0 18z"/><path d="M19 27a7 7 0 0 1 10 0M22 30.5a3 3 0 0 1 4 0"/></svg><figcaption>Real-time data</figcaption></figure>
+      <span class="link__data" aria-hidden="true"><i></i><i></i><i></i></span>
+      <figure><img src={v("lr-how4")} alt="" width="569" height="379" loading="lazy" /><figcaption>App experience</figcaption></figure>
+    </div>
+    <ul class="link__list" role="list">
+      <li>Monitors the plant’s environment in real time.</li>
+      <li>Turns data into simple, child-friendly insights.</li>
+      <li>Guides the child from planting to harvesting.</li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+---
+/* Hormona: one switch drives survey numbers, persona and screens for each stage. */
+import { journeys } from "../../../data/cases/hormona";
+const keys = ["peri", "post"] as const;
+---
+<div class="jr" data-jr>
+  <div class="jr__switch" role="tablist" aria-label="Choose a journey">
+    {keys.map((k, i) => (
+      <button type="button" role="tab" id={`tab-${k}`} aria-controls={`panel-${k}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? 0 : -1} data-jr-tab={k}>{journeys[k].label}</button>
+    ))}
+    <span class="jr__pill" aria-hidden="true"></span>
+  </div>
+  {keys.map((k, i) => {
+    const j = journeys[k];
+    const P = j.persona;
+    return (
+      <div class="jr__panel" role="tabpanel" id={`panel-${k}`} aria-labelledby={`tab-${k}`} hidden={i !== 0} data-jr-panel={k}>
+        <p class="jr__label">Insights from survey · {j.label}</p>
+        <ul class={`jr__stats jr__stats--${k}`} role="list">{j.stats.map((s) => <li><b>{s.v}</b><span>{s.l}</span></li>)}</ul>
+        <article class="persona persona--2 jr__persona">
+          <p class="persona__tag">Persona · Woman in {j.label.toLowerCase()}</p>
+          <p class="persona__scn"><b>Scenario:</b> {P.scenario}</p>
+          <div class="persona__grid">
+            <div class="persona__id">
+              <img src={P.photo.src} alt={P.photo.alt} width={P.photo.w} height={P.photo.h} loading="lazy" />
+              <h3>{P.name}</h3>
+              <dl>{P.facts.map(([a, b]) => <div><dt>{a}</dt><dd>{b}</dd></div>)}</dl>
+            </div>
+            <div class="persona__col"><h4>Pain points</h4><ul>{P.pains.map((x) => <li>{x}</li>)}</ul></div>
+            <div class="persona__col"><h4>Needs</h4><ul>{P.needs.map((x) => <li>{x}</li>)}</ul></div>
+          </div>
+        </article>
+      </div>
+    );
+  })}
+</div>

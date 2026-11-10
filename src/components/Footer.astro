@@ -1,0 +1,21 @@
+---
+const year = 2026;
+---
+<footer class="foot">
+  <div class="wrap foot__in">
+    <p>© {year} Nimisha Vk · UI/UX Designer, Pune</p>
+    <ul role="list">
+      <li><a href="mailto:nimishavkattutharayil@gmail.com">Email</a></li>
+      <li><a href="https://www.behance.net/nimishavk" target="_blank" rel="noopener">Behance<span class="sr-only"> (opens in a new tab)</span></a></li>
+      <li><a href="https://www.linkedin.com/in/nimisha-vijayraj" target="_blank" rel="noopener">LinkedIn<span class="sr-only"> (opens in a new tab)</span></a></li>
+      <li><a href="#main" data-to-top>Back to top ↑</a></li>
+    </ul>
+  </div>
+</footer>
+<style>
+  .foot { border-top: 1px solid var(--c-line); padding-block: 28px; font-size: var(--fs-small); color: var(--c-muted); }
+  .foot__in { display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; align-items: center; }
+  .foot ul { display: flex; flex-wrap: wrap; gap: 8px 24px; list-style: none; }
+  .foot a { text-decoration: none; color: var(--c-text); }
+  .foot a:hover { color: var(--c-blue); text-decoration: underline; text-underline-offset: 4px; }
+</style>

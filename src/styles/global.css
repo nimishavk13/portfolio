@@ -1,114 +1,86 @@
-/* Tokens taken directly from the Figma file (Nimisha VK – UI/UX Portfolio) */
-:root {
-  /* Layout system: every page shares one gutter and one content container.
-     Figma frames are 1920 wide; 1 design px = container / 1920. */
-  --page-gutter: clamp(20px, 3.5vw, 64px);
-  --container: min(calc(100vw - 2 * var(--page-gutter)), 1440px);
-  --px: calc(var(--container) / 1920);
-  --nav-h: 88px; /* fixed nav: 14px + 60px bar + 14px */
-
-  --blue: #1d59bb;
-  --blue-light: #76b9ff;
-  --blue-ui: #336ef9;
-  --blue-arrow: #0147ef;
-  --navy: #10182b;
-  --navy-deep: #0d2855;
-  --ink: #000000;
-  --ink-soft: #3d4170;
-  --ink-muted: #464d69;
-  --process-num: #2c5ca3;
-  --skills-bg: #d3ddf1;
-  --white: #ffffff;
-
-  --grad-word: linear-gradient(90deg, var(--blue) 39%, var(--blue-light) 100%);
-
-  --font-poppins: "Poppins", system-ui, sans-serif;
-  --font-figtree: "Figtree", system-ui, sans-serif;
-
-  /* one easing + duration family for the whole site */
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --dur: 900ms;
-  --dur-fast: 280ms;
-
-  --gutter: var(--page-gutter);
-}
-
-*,
-*::before,
-*::after { box-sizing: border-box; }
-
-html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--nav-h) + 8px); }
-main { overflow-x: clip; } /* decorative glows may bleed past the container, never cause sideways scroll */
-/* pages that don't open on a full-bleed hero start below the fixed nav */
-body.has-nav-offset main { padding-top: var(--nav-h); }
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--nav-h) + 12px); }
 body {
-  margin: 0;
-  background: var(--white);
-  color: var(--ink);
-  font-family: var(--font-poppins);
-  line-height: 1.4;
-  overflow-x: hidden;
+  margin: 0; background: var(--c-white); color: var(--c-text);
+  font: 400 var(--fs-body) / 1.6 var(--f-body);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
 }
-img, svg { display: block; max-width: 100%; }
-h1, h2, h3, h4, p { margin: 0; }
+main { overflow-x: clip; }
+img, svg, video { display: block; max-width: 100%; }
+img { height: auto; }
+h1, h2, h3, h4, p, figure, blockquote { margin: 0; }
+h1, h2, h3, h4 { font-family: var(--f-head); color: var(--c-ink); text-wrap: balance; }
+ul, ol { margin: 0; padding: 0; }
 a { color: inherit; }
-button { font: inherit; }
+button { font: inherit; color: inherit; }
+::selection { background: #cfe0ff; color: var(--c-ink); }
 
-/* Accessible focus, in the portfolio blue */
-:focus-visible {
-  outline: 3px solid var(--blue-ui);
-  outline-offset: 4px;
-  border-radius: 6px;
-}
+:focus-visible { outline: 3px solid var(--c-blue-ui); outline-offset: 4px; border-radius: 8px; }
 
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
-
 .skip-link {
-  position: fixed; left: 16px; top: -60px; z-index: 100;
-  background: var(--blue); color: #fff; padding: 10px 16px; border-radius: 10px;
-  text-decoration: none; transition: top var(--dur-fast) var(--ease-out);
+  position: fixed; left: 16px; top: -80px; z-index: 200;
+  background: var(--c-blue); color: #fff; padding: 12px 18px; border-radius: 12px;
+  text-decoration: none; font-weight: 600; transition: top var(--dur-fast) var(--ease-out);
 }
 .skip-link:focus { top: 16px; }
 
-/* Gradient word ("Nimisha", "me", "work", "Process") */
-.grad-word {
-  background: var(--grad-word);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.wrap { max-width: calc(var(--wrap) + 2 * var(--gx)); margin-inline: auto; padding-inline: var(--gx); }
+
+/* her signature: one gradient word */
+.gw { background: var(--grad-word); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+.sec-title { font: 700 var(--fs-h2) / 1.06 var(--f-head); letter-spacing: -0.025em; color: var(--c-ink); }
+.lead { font: 400 var(--fs-lead) / 1.6 var(--f-head); color: var(--c-text); }
+.label { font: 600 var(--fs-label) / 1.2 var(--f-body); letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-muted); }
+
+.pill-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 600 14px/1 var(--f-head); color: var(--c-blue);
+  border: 1.5px solid currentColor; border-radius: var(--r-pill);
+  padding: 10px 18px; background: rgba(255, 255, 255, 0.7);
 }
 
-/* The 1920 canvas – centred on very wide screens */
-.canvas {
-  position: relative;
-  width: var(--container);
-  margin-inline: auto;
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 52px;
+  padding: 0 26px; border-radius: var(--r-pill); text-decoration: none;
+  font: 600 16px/1 var(--f-head); background: var(--c-blue); color: #fff;
+  box-shadow: 0 14px 28px -14px rgba(29, 89, 187, 0.7);
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), background var(--dur-fast);
 }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 18px 34px -14px rgba(29, 89, 187, 0.75); }
+.btn:active { transform: translateY(0) scale(0.98); }
+.btn svg { width: 18px; height: 18px; transition: transform var(--dur-fast) var(--ease-out); }
+.btn:hover svg { transform: translateX(3px); }
+.btn--ghost { background: #fff; color: var(--c-ink); box-shadow: inset 0 0 0 1.5px var(--c-line); }
+.btn--ghost:hover { box-shadow: inset 0 0 0 1.5px var(--c-blue-ui); }
 
-/* ---------- Scroll reveal (movement, not just opacity) ---------- */
-[data-reveal] {
-  transition:
-    transform var(--dur) var(--ease-out),
-    opacity var(--dur) var(--ease-out);
-  transition-delay: var(--d, 0ms);
+.arrow-btn {
+  display: inline-grid; place-items: center; flex: none;
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 1.5px solid currentColor;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast), transform var(--dur-fast) var(--ease-out);
 }
-.js [data-reveal="rise"] { transform: translate3d(0, 60px, 0); opacity: 0; }
-.js [data-reveal="from-right"] { transform: translate3d(90px, 0, 0); opacity: 0; }
-.js [data-reveal="from-left"] { transform: translate3d(-90px, 0, 0); opacity: 0; }
-.js [data-reveal="pop"] { transform: scale(0.6) rotate(-40deg); opacity: 0; }
-.js [data-reveal].is-in { transform: none; opacity: 1; }
-.js [data-reveal="pop"].is-in { transform: rotate(var(--rot, 0deg)); }
+.arrow-btn svg { width: 20px; height: 20px; }
+
+/* Reveal: elements are visible by default; JS adds .js and animates them in */
+.js [data-reveal] { opacity: 0; transform: translate3d(0, 36px, 0); }
+.js [data-reveal="fade"] { transform: none; }
+.js [data-reveal="scale"] { transform: scale(0.94); }
+.js [data-reveal].is-in, .no-motion [data-reveal] { opacity: 1; transform: none; }
+.js [data-reveal] { transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out); transition-delay: var(--d, 0ms); }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-  [data-reveal] { transform: none !important; opacity: 1 !important; }
-  [data-reveal="pop"] { transform: rotate(var(--rot, 0deg)) !important; }
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .js [data-reveal] { opacity: 1 !important; transform: none !important; }
 }
+
+/* Lenis */
+html.lenis-on, html.lenis-on body { height: auto; }
+.lenis-on.lenis-smooth { scroll-behavior: auto !important; }
+.lenis-on.lenis-stopped { overflow: clip; }
+.lenis-on [data-lenis-prevent] { overscroll-behavior: contain; }

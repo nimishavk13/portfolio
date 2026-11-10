@@ -1,0 +1,11 @@
+{
+  "headers": [
+    {
+      "source": "/resume.pdf",
+      "headers": [
+        { "key": "Content-Type", "value": "application/pdf" },
+        { "key": "Content-Disposition", "value": "inline; filename=\"Nimisha_VK_UI_UX_Resume_2026.pdf\"" }
+      ]
+    }
+  ]
+}

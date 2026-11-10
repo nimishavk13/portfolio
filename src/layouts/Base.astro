@@ -1,24 +1,30 @@
 ---
 import "@fontsource/poppins/400.css";
+import "@fontsource/poppins/500.css";
+import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/700.css";
+import "@fontsource/poppins/800.css";
 import "@fontsource/figtree/400.css";
-import "@fontsource/figtree/700.css";
-import "@fontsource/figtree/800.css";
+import "@fontsource/figtree/500.css";
+import "@fontsource/figtree/600.css";
+import "../styles/tokens.css";
 import "../styles/global.css";
 import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
 
 interface Props {
   title: string;
   description?: string;
-  /** "dark" when the page opens on a dark section (homepage hero) */
-  navTone?: "dark" | "light";
-  extraFonts?: string[];
+  image?: string;
+  theme?: string; // browser UI colour
 }
 const {
   title,
-  description = "Nimisha Vk – UI/UX designer based in Pune, India. Selected work: Little Roots, Hormona, Mentora and Yeola Paithani.",
-  navTone = "light",
+  description = "Nimisha Vk is a UI/UX designer based in Pune, India. Selected work: Little Roots, Mentora, Hormona and Yeola Paithani.",
+  image = "/img/home/work-little-roots.webp",
+  theme = "#ffffff",
 } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 <!doctype html>
 <html lang="en">
@@ -27,22 +33,29 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/img/home/work-little-roots.webp" />
-    <meta name="theme-color" content="#10182b" />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content={theme} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <script is:inline>document.documentElement.classList.add("js");</script>
+    <script is:inline>
+      document.documentElement.classList.add("js");
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("no-motion");
+    </script>
   </head>
-  <body class={navTone === "light" ? "has-nav-offset" : undefined}>
+  <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <Nav tone={navTone} />
+    <Nav />
     <main id="main">
       <slot />
     </main>
+    <Footer />
     <script>
-      import { initReveal } from "../scripts/reveal";
-      initReveal();
+      import { initSite } from "../scripts/site";
+      initSite();
     </script>
   </body>
 </html>

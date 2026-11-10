@@ -1,0 +1,29 @@
+---
+/* Sketch → final interface as a drag-to-compare slider, plus her process notes. */
+const v = (n: string) => `/img/v2/${n}.webp`;
+---
+<div class="vis">
+  <div class="vis__copy" data-reveal>
+    <h3>Defining the <mark class="hl">visual language</mark></h3>
+    <p>The visual direction combines playful illustrations, familiar visual cues and nature-inspired elements to make plant care approachable and engaging for children.</p>
+    <dl class="vis__notes">
+      <div><dt>Visual exploration</dt><dd><b>Building a playful interface.</b> Exploring playful illustrations, intuitive navigation and child-friendly interface elements.</dd></div>
+      <div><dt>Final interface direction</dt><dd><b>Ocean-inspired experience.</b> A nature-inspired underwater interface with playful characters and intuitive navigation brings the gardening journey to life.</dd></div>
+    </dl>
+  </div>
+  <figure class="cmp" data-cmp style="--x:50%">
+    <div class="cmp__stage">
+      <img class="cmp__a" src={v("lr-final")} alt="Final ocean-themed interface for the My Basil screen" width="1059" height="694" loading="lazy" />
+      <div class="cmp__b"><img src={v("lr-sketch")} alt="Hand-drawn sketch of the My Basil screen" width="993" height="671" loading="lazy" /></div>
+      <span class="cmp__handle" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span>
+      <span class="cmp__lbl cmp__lbl--a">Sketch</span><span class="cmp__lbl cmp__lbl--b">Final</span>
+    </div>
+    <label class="sr-only" for="cmp-range">Compare sketch and final interface</label>
+    <input id="cmp-range" class="cmp__range" type="range" min="0" max="100" value="50" data-cmp-range />
+    <figcaption>Drag to compare the sketch with the final interface.</figcaption>
+  </figure>
+  <div class="vis__decision" data-reveal>
+    <p><b>Design decision.</b> Plant care becomes an engaging journey through playful visuals, clear navigation and familiar interactions that help children understand their plants’ needs.</p>
+    <ol role="list" class="vis__steps"><li>Explored the initial space theme</li><li>Collaborated on the final visual direction</li><li>Reviewed and refined the final UI</li></ol>
+  </div>
+</div>

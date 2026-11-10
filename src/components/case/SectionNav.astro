@@ -1,0 +1,13 @@
+---
+import type { Section } from "../../data/case-types";
+interface Props { sections: Section[] }
+const { sections } = Astro.props;
+---
+<nav class="snav" aria-label="Case study sections" data-snav>
+  <div class="snav__in">
+    <ol role="list">
+      {sections.map((s, i) => <li><a href={`#${s.id}`} data-snav-link={s.id}><small>{String(i + 1).padStart(2, "0")}</small>{s.nav}</a></li>)}
+    </ol>
+    <span class="snav__bar" aria-hidden="true"><span data-snav-progress></span></span>
+  </div>
+</nav>

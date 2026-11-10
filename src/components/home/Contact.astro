@@ -1,0 +1,51 @@
+---
+const lineA = "This is just the beginning. I’m continuously learning, refining, and designing with purpose.".split(" ");
+const lineB = "If this work speaks to you, I’d be glad to connect.".split(" ");
+---
+<section class="contact" id="contact" aria-labelledby="contact-title" data-section="contact">
+  <span class="contact__glow contact__glow--a" data-cglow aria-hidden="true"></span>
+  <span class="contact__glow contact__glow--b" data-cglow aria-hidden="true"></span>
+  <div class="wrap contact__in">
+    <h2 class="contact__say" id="contact-title" data-say>
+      <span class="say say--a">{lineA.map((w) => <><span class="sw">{w}</span>{" "}</>)}</span>
+      <span class="say say--b">{lineB.map((w) => <><span class="sw">{w}</span>{" "}</>)}</span>
+    </h2>
+
+    <div class="contact__links" data-reveal>
+      <div class="mail">
+        <a class="mail__a" href="mailto:nimishavkattutharayil@gmail.com">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg>
+          nimishavkattutharayil@gmail.com
+        </a>
+        <button class="mail__copy" type="button" data-copy="nimishavkattutharayil@gmail.com"><span data-copy-label>Copy</span></button>
+      </div>
+      <div class="social">
+        <a class="btn" href="https://www.linkedin.com/in/nimisha-vijayraj" target="_blank" rel="noopener">LinkedIn <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 14 14 6M7 6h7v7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
+        <a class="btn btn--ghost" href="https://www.behance.net/nimishavk" target="_blank" rel="noopener"><img src="/img/home/icon-behance.webp" alt="" width="22" height="22" />Behance <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 14 14 6M7 6h7v7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact { position: relative; overflow: hidden; padding-block: calc(var(--section) * 1.1); }
+  .contact__glow { position: absolute; width: 60vw; height: 60vw; border-radius: 50%; pointer-events: none; }
+  .contact__glow--a { left: -30vw; bottom: -34vw; background: radial-gradient(closest-side, rgba(51, 110, 249, 0.55), rgba(118, 185, 255, 0.2) 55%, rgba(255, 255, 255, 0)); }
+  .contact__glow--b { right: -30vw; top: -34vw; background: radial-gradient(closest-side, rgba(51, 110, 249, 0.5), rgba(118, 185, 255, 0.18) 55%, rgba(255, 255, 255, 0)); }
+  .contact__in { position: relative; text-align: center; }
+  .contact__say { max-width: 30em; margin-inline: auto; font: 500 clamp(21px, 2.2vw, 30px)/1.45 var(--f-head); letter-spacing: -0.02em; }
+  .say { display: block; }
+  .say--b { margin-top: 0.6em; font-weight: 700; }
+  .say--b .sw { color: var(--c-blue); }
+  :global(.js) .contact__say .sw { color: #c9d1e3; }
+  .sw { transition: color 300ms; }
+  .contact__links { margin-top: 56px; display: grid; justify-items: center; gap: 22px; }
+  .mail { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; padding: 8px 8px 8px 22px; border-radius: var(--r-pill); background: #fff; box-shadow: 0 0 0 1px var(--c-line), var(--shadow-soft); }
+  .mail__a { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font: 500 clamp(15px, 1.4vw, 18px)/1.2 var(--f-head); color: var(--c-ink); overflow-wrap: anywhere; }
+  .mail__a svg { width: 24px; height: 24px; flex: none; fill: none; stroke: var(--c-blue); stroke-width: 2; stroke-linecap: round; }
+  .mail__a:hover { color: var(--c-blue); }
+  .mail__copy { border: 0; cursor: pointer; min-height: 44px; padding: 0 20px; border-radius: var(--r-pill); background: var(--c-wash); color: var(--c-blue); font: 600 14px/1 var(--f-head); transition: background var(--dur-fast); }
+  .mail__copy:hover { background: var(--c-mist); }
+  .social { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .social img { width: 22px; height: 22px; border-radius: 4px; }
+</style>

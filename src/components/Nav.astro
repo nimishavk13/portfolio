@@ -1,98 +1,91 @@
 ---
-interface Props { tone?: "dark" | "light"; back?: boolean }
-const { tone = "light" } = Astro.props;
-const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "";
+import { projects } from "../data/projects";
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isHome = path === "/";
+const pre = isHome ? "" : "/";
 ---
-<header class="nav" data-tone={tone} data-nav>
+<header class="nav" data-nav>
   <nav class="nav__inner" aria-label="Main">
-    <a class="nav__name" href="/">Nimisha Vk</a>
+    <a class="nav__name" href="/" aria-label="Nimisha Vk, home">
+      <span class="nav__mark" aria-hidden="true">N</span>
+      <span>Nimisha <b class="gw">Vk</b></span>
+    </a>
     <ul class="nav__links" role="list">
-      {isHome ? (
-        <>
-          <li><a href="#about">About</a></li>
-          <li><a href="#work">Work</a></li>
-        </>
-      ) : (
-        <li><a href="/#work" class="nav__back"><span aria-hidden="true">←</span> All work</a></li>
-      )}
-      <li><a href="mailto:nimishavkattutharayil@gmail.com" class="nav__cta">Contact</a></li>
+      <li><a href={`${pre}#about`} data-nav-link="about">About</a></li>
+      <li><a href={`${pre}#process`} data-nav-link="process">Process</a></li>
+      <li><a href={`${pre}#work`} data-nav-link="work">Work</a></li>
+      <li><a href="/resume.pdf" class="nav__resume" target="_blank" rel="noopener">Resume <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 14 14 6M7.5 6H14v6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr-only"> (PDF, opens in a new tab)</span></a></li>
+      <li><a href={`${pre}#contact`} class="nav__cta">Let’s talk</a></li>
     </ul>
+    <a href="/resume.pdf" class="nav__resume nav__resume--m" target="_blank" rel="noopener">Resume <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 14 14 6M7.5 6H14v6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr-only"> (PDF, opens in a new tab)</span></a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" data-menu-toggle>
+      <span class="sr-only">Menu</span><i></i><i></i>
+    </button>
   </nav>
+  <div class="menu" id="menu" hidden data-menu>
+    <ul role="list">
+      {projects.map((p, i) => (
+        <li><a href={`/work/${p.slug}`} style={`--pc:${p.color}`}><small>0{i + 1}</small>{p.title}</a></li>
+      ))}
+    </ul>
+    <ul role="list" class="menu__sec">
+      <li><a href={`${pre}#process`}>Process</a></li>
+      <li><a href={`${pre}#about`}>About</a></li>
+      <li><a href={`${pre}#contact`}>Contact</a></li>
+      <li><a href="/resume.pdf" target="_blank" rel="noopener">Resume ↗<span class="sr-only"> (PDF, opens in a new tab)</span></a></li>
+    </ul>
+  </div>
 </header>
 
 <style>
-  .nav {
-    position: fixed; inset: 0 0 auto 0; z-index: 50;
-    padding: 14px 0;
-    pointer-events: none;
-    transition: transform var(--dur-fast) var(--ease-out);
-  }
-  .nav.is-hidden { transform: translateY(-110%); }
+  .nav { position: fixed; inset: 0 0 auto 0; z-index: 60; padding: 14px var(--gx); pointer-events: none; transition: transform 420ms var(--ease-out); }
+  .nav.is-hidden { transform: translateY(-120%); }
   .nav__inner {
-    pointer-events: auto;
-    max-width: var(--container); margin-inline: auto;
+    pointer-events: auto; position: relative; z-index: 2;
+    max-width: var(--wrap); margin-inline: auto; height: 56px;
     display: flex; align-items: center; justify-content: space-between; gap: 16px;
-    padding: 8px 8px 8px 22px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.82);
-    -webkit-backdrop-filter: blur(14px);
-    backdrop-filter: blur(14px);
-    box-shadow: 0 0 0 1px rgba(29, 89, 187, 0.12);
-    transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast);
+    padding: 0 8px 0 10px; border-radius: var(--r-pill);
+    background: rgba(255, 255, 255, 0.86);
+    -webkit-backdrop-filter: saturate(1.4) blur(14px); backdrop-filter: saturate(1.4) blur(14px);
+    box-shadow: 0 0 0 1px rgba(29, 89, 187, 0.1), 0 10px 30px -18px rgba(29, 89, 187, 0.45);
   }
-  .nav[data-tone="dark"] .nav__inner {
-    background: rgba(16, 24, 43, 0.35);
-    color: #fff;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18);
-  }
-  .nav__name {
-    font-weight: 700; font-size: 18px; text-decoration: none; letter-spacing: -0.01em;
-  }
-  .nav__links { display: flex; align-items: center; gap: 4px; margin: 0; padding: 0; list-style: none; }
+  .nav__name { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font: 700 17px/1 var(--f-head); color: var(--c-ink); letter-spacing: -0.01em; }
+  .nav__mark { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: var(--grad-card); color: #fff; font-size: 16px; transition: transform 500ms var(--ease-out); }
+  .nav__name:hover .nav__mark { transform: rotate(-12deg) scale(1.06); }
+  .nav__links { display: flex; align-items: center; gap: 2px; list-style: none; }
   .nav__links a {
-    display: inline-flex; align-items: center; gap: 6px;
-    min-height: 44px; padding: 0 16px; border-radius: 999px;
-    font-size: 15px; text-decoration: none;
+    position: relative; display: inline-flex; align-items: center; min-height: 42px; padding: 0 16px;
+    border-radius: var(--r-pill); text-decoration: none; font: 500 15px/1 var(--f-head); color: var(--c-text);
     transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast);
   }
-  .nav__links a:hover { background: rgba(29, 89, 187, 0.1); }
-  .nav[data-tone="dark"] .nav__links a:hover { background: rgba(255, 255, 255, 0.14); }
-  .nav__cta { background: var(--blue); color: #fff !important; }
-  .nav__links .nav__cta:hover { background: var(--blue-ui); }
-  .nav__back span { transition: transform var(--dur-fast) var(--ease-out); }
-  .nav__back:hover span { transform: translateX(-4px); }
-
-  @media (max-width: 1099px) { .nav { padding-inline: var(--page-gutter); } .nav__inner { max-width: none; } }
-  @media (max-width: 560px) {
-    .nav__inner { padding-left: 16px; }
-    .nav__name { font-size: 16px; }
-    .nav__links a { padding: 0 12px; font-size: 14px; }
-    .nav__links li:has(a[href="#about"]) { display: none; }
+  .nav__links a:not(.nav__cta):hover { background: var(--c-wash); }
+  .nav__links a[aria-current="true"] { color: var(--c-blue); }
+  .nav__links a[aria-current="true"]::after { content: ""; position: absolute; left: 50%; bottom: 6px; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%; background: var(--c-blue); }
+  .nav__links .nav__resume, .nav__resume { display: inline-flex; align-items: center; gap: 6px; min-height: 42px; padding: 0 16px; border-radius: var(--r-pill); text-decoration: none; font: 600 15px/1 var(--f-head); color: var(--c-blue); box-shadow: inset 0 0 0 1.5px var(--c-blue); margin-left: 6px; transition: background var(--dur-fast), color var(--dur-fast); }
+  .nav__resume svg { width: 15px; height: 15px; transition: translate var(--dur-fast) var(--ease-out); }
+  .nav__links .nav__resume:hover, .nav__resume:hover { background: var(--c-wash); }
+  .nav__resume:hover svg { translate: 2px -2px; }
+  .nav__resume--m { display: none; }
+  .nav__cta { background: var(--c-blue); color: #fff !important; margin-left: 6px; }
+  .nav__cta:hover { background: #174ea7; }
+  .nav__toggle { display: none; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--c-blue); cursor: pointer; position: relative; }
+  .nav__toggle i { position: absolute; left: 13px; right: 13px; height: 2px; background: #fff; border-radius: 2px; transition: transform var(--dur-fast) var(--ease-out); }
+  .nav__toggle i:first-of-type { top: 17px; } .nav__toggle i:last-of-type { top: 25px; }
+  .nav__toggle[aria-expanded="true"] i:first-of-type { transform: translateY(4px) rotate(45deg); }
+  .nav__toggle[aria-expanded="true"] i:last-of-type { transform: translateY(-4px) rotate(-45deg); }
+  .menu {
+    pointer-events: auto; position: fixed; inset: 0; z-index: 1; background: #fff;
+    padding: calc(var(--nav-h) + 24px) var(--gx) 32px; display: flex; flex-direction: column; justify-content: space-between; overflow-y: auto;
+  }
+  .menu[hidden] { display: none; }
+  .menu ul { list-style: none; display: grid; gap: 4px; }
+  .menu a { display: flex; align-items: baseline; gap: 12px; text-decoration: none; font: 700 clamp(30px, 9vw, 44px)/1.15 var(--f-head); color: var(--c-ink); padding: 6px 0; }
+  .menu a small { font: 600 13px var(--f-body); color: var(--pc, var(--c-blue)); }
+  .menu__sec a { font-size: 20px; font-weight: 500; color: var(--c-muted); }
+  @media (max-width: 760px) {
+    .nav__links { display: none; }
+    .nav__toggle { display: block; }
+    .nav__resume--m { display: inline-flex; margin-left: auto; min-height: 40px; padding: 0 14px; font-size: 14px; }
+    .nav__inner { gap: 8px; }
   }
 </style>
-
-<script>
-  // Tone follows whatever section sits under the nav; hides on scroll-down, returns on scroll-up.
-  const nav = document.querySelector<HTMLElement>("[data-nav]");
-  if (nav) {
-    const darkSections = document.querySelectorAll<HTMLElement>("[data-nav-dark]");
-    let lastY = window.scrollY;
-    let ticking = false;
-    const update = () => {
-      ticking = false;
-      const y = window.scrollY;
-      let dark = false;
-      darkSections.forEach((s) => {
-        const r = s.getBoundingClientRect();
-        if (r.top <= 40 && r.bottom > 40) dark = true;
-      });
-      nav.dataset.tone = dark ? "dark" : "light";
-      const goingDown = y > lastY && y > 400;
-      nav.classList.toggle("is-hidden", goingDown && !nav.contains(document.activeElement));
-      lastY = y;
-    };
-    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-    nav.addEventListener("focusin", () => nav.classList.remove("is-hidden"));
-    update();
-  }
-</script>
