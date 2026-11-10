@@ -1,0 +1,101 @@
+---
+/* "Selected work" — her bento layout from PDF p.4, as real links. */
+import { getProject } from "../../data/projects";
+const lr = getProject("little-roots"), ho = getProject("hormona"), me = getProject("mentora"), ye = getProject("yeola-paithani");
+const Arrow = `<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+---
+<section class="work" id="work" aria-labelledby="work-title">
+  <div class="wrap">
+    <h2 id="work-title" class="sec-title work__title" data-reveal="rise">Selected <span class="gw">work</span></h2>
+
+    <a class="w w--lead" href={`/work/${lr.slug}`} style={`--pc:${lr.color}`} data-reveal="rise">
+      <span class="w__img"><img src={lr.cardImage} alt={lr.cardAlt} width="3324" height="1222" loading="lazy" decoding="async" /></span>
+      <span class="w__row">
+        <span class="w__name">{lr.title}</span>
+        <span class="w__div" aria-hidden="true"></span>
+        <span class="w__sum">{lr.summary}</span>
+        <span class="arrow-btn" set:html={Arrow} />
+      </span>
+      <span class="w__tags">{lr.tags.map((t) => <span>{t}</span>)}</span>
+    </a>
+
+    <div class="work__pair">
+      <a class="w w--tall" href={`/work/${ho.slug}`} style={`--pc:${ho.color}`} data-reveal="rise">
+        <span class="w__img"><img src={ho.cardImage} alt={ho.cardAlt} width="1368" height="1266" loading="lazy" decoding="async" /></span>
+        <span class="w__row">
+          <span class="w__stack"><span class="w__name">{ho.title}</span><span class="w__sum">{ho.summary}</span></span>
+          <span class="arrow-btn" set:html={Arrow} />
+        </span>
+        <span class="w__tags">{ho.tags.map((t) => <span>{t}</span>)}</span>
+      </a>
+
+      <div class="work__col">
+        {[me, ye].map((p, i) => (
+          <a class="w w--side" href={`/work/${p.slug}`} data-reveal="rise" style={`--pc:${p.color};--d:${(i + 1) * 100}ms`}>
+            <span class="w__img"><img src={p.cardImage} alt={p.cardAlt} width="1164" height="690" loading="lazy" decoding="async" /></span>
+            <span class="w__side">
+              <span class="w__name">{p.title}</span>
+              <span class="w__sum">{p.summary}</span>
+              <span class="arrow-btn" set:html={Arrow} />
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .work { padding-block: var(--section); }
+  .work__title { text-align: right; margin-bottom: var(--s-7); }
+
+  .w { display: block; color: var(--c-ink); text-decoration: none; }
+  .w__img { display: block; overflow: hidden; border-radius: var(--r-lg); background: var(--c-wash); }
+  .w__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 900ms var(--ease-out); }
+  .w__name { font: 700 var(--fs-h3) / 1.1 var(--f-head); letter-spacing: -0.015em; }
+  .w__sum { font: 400 16px/1.5 var(--f-head); color: var(--c-text); }
+  .w__tags { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-top: var(--s-3); }
+  .w__tags span {
+    font: 500 var(--fs-label)/1 var(--f-body); color: var(--pc); padding: 7px 12px; border-radius: var(--r-pill);
+    background: color-mix(in srgb, var(--pc) 10%, white);
+  }
+
+  .w:hover .w__img img, .w:focus-visible .w__img img { transform: scale(1.035); }
+  .w:hover .arrow-btn, .w:focus-visible .arrow-btn { background: var(--c-blue-ui); color: #fff; transform: translateX(4px); }
+
+  /* lead card */
+  .w--lead .w__img { aspect-ratio: 1920 / 700; }
+  .w__row { display: flex; align-items: center; gap: var(--s-5); margin-top: var(--s-5); }
+  .w--lead .w__name { font-size: clamp(28px, 3vw, 40px); }
+  .w__div { width: 1.5px; align-self: stretch; background: var(--c-blue-ui); opacity: 0.5; }
+  .w--lead .w__sum { flex: 1; }
+
+  .work__pair {
+    display: grid; grid-template-columns: 1fr 1px 1.08fr; gap: var(--s-6);
+    margin-top: var(--s-8); align-items: start;
+  }
+  .work__pair::before { content: ""; grid-column: 2; grid-row: 1; align-self: stretch; background: var(--c-line); }
+  .w--tall { grid-column: 1; grid-row: 1; }
+  .work__col { grid-column: 3; grid-row: 1; display: grid; gap: var(--s-6); }
+
+  .w--tall .w__img { aspect-ratio: 1 / 0.86; }
+  .w__stack { display: grid; gap: 4px; flex: 1; }
+
+  .w--side { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: var(--s-5); align-items: start; }
+  .w--side + .w--side { padding-top: var(--s-6); border-top: 1px solid var(--c-line); }
+  .w--side .w__img { aspect-ratio: 1.7 / 1; }
+  .w__side { display: grid; gap: var(--s-2); justify-items: start; }
+  .w__side .arrow-btn { margin-top: var(--s-2); }
+
+  @media (max-width: 860px) {
+    .work__title { text-align: left; }
+    .w--lead .w__img { aspect-ratio: 16 / 9; }
+    .w__row { flex-wrap: wrap; gap: var(--s-3); }
+    .w__div { display: none; }
+    .w--lead .w__sum { flex-basis: calc(100% - 64px); }
+    .work__pair { grid-template-columns: 1fr; }
+    .work__pair::before { display: none; }
+    .w--tall, .work__col { grid-column: 1; grid-row: auto; }
+    .w--side { grid-template-columns: 1fr; }
+  }
+</style>

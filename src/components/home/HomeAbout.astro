@@ -1,0 +1,103 @@
+---
+/* "About me" — PDF p.3: Education (blue), Skills (sky), Tools (navy). */
+const soft = ["Problem Solving", "Critical Thinking", "Communication", "Collaboration", "Empathy", "Attention to Detail", "Conflict Management", "Adaptability"];
+const hard = ["User Research", "Usability Testing", "Journey Mapping", "Personas", "Information Architecture", "Wireframing", "Interaction Design", "Prototyping", "Card Sorting"];
+const tools = [
+  { name: "Figma", img: "tool-figma" }, { name: "Illustrator", img: "tool-illustrator" },
+  { name: "Photoshop", img: "tool-photoshop" }, { name: "Premiere Pro", img: "tool-premiere" },
+  { name: "InDesign", img: "tool-indesign" }, { name: "Miro", img: "tool-miro" },
+];
+---
+<section class="about" id="about" aria-labelledby="about-title">
+  <div class="about__wash" aria-hidden="true"></div>
+  <div class="wrap">
+    <h2 id="about-title" class="sec-title" data-reveal="rise">About <span class="gw">me</span></h2>
+
+    <div class="about__grid">
+      <article class="card card--edu" data-reveal="rise">
+        <h3>Education</h3>
+        <div class="edu">
+          <p class="edu__k">Undergraduate (pursuing)</p>
+          <p class="edu__t">Bachelor of Design –<br />User Experience Design</p>
+          <p class="edu__p">Symbiosis Institute of Design, Pune</p>
+          <p class="edu__p">2023 – 2027</p>
+        </div>
+        <hr />
+        <div class="edu">
+          <p class="edu__k">Schooling</p>
+          <p class="edu__t">Higher Secondary – Science (CBSE)</p>
+          <p class="edu__p">Blossom Public School, Tathawade</p>
+          <p class="edu__p">2022 – 2023</p>
+        </div>
+      </article>
+
+      <article class="card card--skills" data-reveal="rise" style="--d:100ms">
+        <h3>Skills</h3>
+        <h4><i aria-hidden="true"></i>Soft skills</h4>
+        <ul class="chips">{soft.map((s) => <li>{s}</li>)}</ul>
+        <hr />
+        <h4><i aria-hidden="true"></i>Hard skills</h4>
+        <ul class="chips">{hard.map((s) => <li>{s}</li>)}</ul>
+        <svg class="cursor" viewBox="0 0 40 40" aria-hidden="true"><path d="M4 4l32 12-14 4-4 14z" /></svg>
+      </article>
+
+      <article class="card card--tools" data-reveal="rise" style="--d:200ms">
+        <h3>Tools</h3>
+        <ul class="tools">
+          {tools.map((t) => (
+            <li><img src={`/img/home/${t.img}.webp`} alt="" width="72" height="72" loading="lazy" /><span>{t.name}</span></li>
+          ))}
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about { position: relative; padding-block: var(--section); overflow: hidden; }
+  .about__wash { position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(40vw 30vw at 100% 0%, rgba(29, 89, 187, 0.35), rgba(118, 185, 255, 0.12) 50%, rgba(255, 255, 255, 0) 75%); }
+  .about .wrap { position: relative; }
+  .about__grid { display: grid; grid-template-columns: 1.1fr 0.95fr 0.9fr; gap: var(--s-5); margin-top: var(--s-7); align-items: stretch; }
+
+  .card { border-radius: var(--r-xl); padding: clamp(24px, 2.6vw, 36px); position: relative; overflow: hidden; }
+  .card h3 { font: 700 clamp(26px, 2.4vw, 34px) / 1.1 var(--f-head); margin-bottom: var(--s-5); }
+  .card hr { border: 0; height: 1.5px; margin: var(--s-6) 0; }
+
+  .card--edu { background: var(--grad-card); color: #fff; }
+  .card--edu hr { background: rgba(255, 255, 255, 0.7); width: 80%; }
+  .edu { display: grid; gap: 4px; font-family: var(--f-head); }
+  .edu__k { font-size: 16px; opacity: 0.88; }
+  .edu__t { font-weight: 700; font-size: 18px; line-height: 1.35; margin-block: 2px 4px; }
+  .edu__p { font-size: 16px; opacity: 0.92; }
+
+  .card--skills { background: var(--c-sky); color: var(--c-ink); }
+  .card--skills h4 { display: flex; align-items: center; gap: 10px; font: 700 18px/1 var(--f-head); margin: 0 0 var(--s-3); }
+  .card--skills h4 i { width: 10px; height: 10px; border-radius: 50%; background: var(--c-blue); }
+  .card--skills hr { background: var(--c-blue); opacity: 0.5; }
+  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips li { font: 400 13px/1 var(--f-head); color: var(--c-blue); background: #fff; padding: 9px 14px; border-radius: var(--r-pill);
+    transition: background 280ms var(--ease-out), color 280ms var(--ease-out); }
+  .chips li:hover { background: var(--c-blue); color: #fff; }
+  .cursor { position: absolute; right: 18px; bottom: 14px; width: 34px; fill: var(--c-blue-ui); transform: rotate(8deg); }
+
+  .card--tools { background: radial-gradient(120% 80% at 100% 40%, #1d3f7a 0%, var(--c-navy) 55%); color: #fff; }
+  .tools { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-3); }
+  .tools li {
+    display: grid; justify-items: center; gap: 10px; padding: 18px 10px 14px; border-radius: var(--r-md);
+    background: rgba(255, 255, 255, 0.06); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    font: 400 14px/1 var(--f-head); transition: background 280ms var(--ease-out), transform 280ms var(--ease-out);
+  }
+  .tools li:hover { background: rgba(255, 255, 255, 0.12); transform: translateY(-3px); }
+  .tools img { width: 56px; height: 56px; border-radius: 14px; }
+
+  @media (max-width: 1000px) {
+    .about__grid { grid-template-columns: 1fr 1fr; }
+    .card--tools { grid-column: 1 / -1; }
+    .tools { grid-template-columns: repeat(6, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .about__grid { grid-template-columns: 1fr; }
+    .tools { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>

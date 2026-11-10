@@ -9,13 +9,13 @@ const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "";
     <ul class="nav__links" role="list">
       {isHome ? (
         <>
-          <li><a href="#about">About</a></li>
           <li><a href="#work">Work</a></li>
+          <li><a href="#about">About</a></li>
         </>
       ) : (
         <li><a href="/#work" class="nav__back"><span aria-hidden="true">←</span> All work</a></li>
       )}
-      <li><a href="mailto:nimishavkattutharayil@gmail.com" class="nav__cta">Contact</a></li>
+      <li><a href={isHome ? "#contact" : "/#contact"} class="nav__cta">Contact</a></li>
     </ul>
   </nav>
 </header>

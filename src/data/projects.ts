@@ -6,6 +6,10 @@ export type Project = {
   summary: string;   // line shown on the card
   cardImage: string; // /img/home/…
   cardAlt: string;
+  no: string;        // project number on its cover slide
+  focus: string;     // cover slide: "Project N : <focus>"
+  tags: string[];    // cover slide: duration | domain | type
+  color: string;
 };
 
 export const projects: Project[] = [
@@ -15,6 +19,10 @@ export const projects: Project[] = [
     summary: "AI-integrated gardening kit and app for children aged 5–12.",
     cardImage: "/img/home/work-little-roots.webp",
     cardAlt: "A whale-shaped planter with basil next to a tablet showing the Little Roots app home screen",
+    no: "01",
+    focus: "Child-Centred Design",
+    tags: ["2 months", "Plant care", "Phygital product"],
+    color: "var(--lr)",
   },
   {
     slug: "hormona",
@@ -22,6 +30,10 @@ export const projects: Project[] = [
     summary: "Women’s menstrual health app.",
     cardImage: "/img/home/work-hormona.webp",
     cardAlt: "Two phones showing Hormona’s cycle tracker calendar and care screen",
+    no: "03",
+    focus: "Healthcare",
+    tags: ["3 months", "Menstrual health", "Mobile app"],
+    color: "var(--ho)",
   },
   {
     slug: "mentora",
@@ -29,6 +41,10 @@ export const projects: Project[] = [
     summary: "Career guidance platform for individuals with CVD.",
     cardImage: "/img/home/work-mentora.webp",
     cardAlt: "A phone showing Mentora’s home screen: “Hello Rohan! Ready to explore your path today?”",
+    no: "02",
+    focus: "Inclusive Design",
+    tags: ["3 months", "EdTech", "Mobile app"],
+    color: "var(--me)",
   },
   {
     slug: "yeola-paithani",
@@ -36,6 +52,10 @@ export const projects: Project[] = [
     summary: "Craft documentation website.",
     cardImage: "/img/home/work-yeola-paithani.webp",
     cardAlt: "A laptop showing the Yeola Paithani website beside a folded Paithani saree",
+    no: "04",
+    focus: "Craft Documentation",
+    tags: ["3 months", "Craft study", "Website"],
+    color: "var(--ye)",
   },
 ];
 
