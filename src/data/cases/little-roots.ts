@@ -64,7 +64,11 @@ const study: CaseStudy = {
           photo: { src: v("lr-ritu"), alt: "Ritu, a smiling woman in a denim shirt", w: 477, h: 470 },
           name: "Ritu Shah", facts: [["Age", "38"], ["Location", "Pune"], ["Occupation", "IT Professional"]],
           scenario: "Ritu wants Kabir to become responsible for his plant, but limited time and her own lack of gardening knowledge often lead her to take over the care herself.",
-          cols: [],
+          cols: [
+            { title: "Pain points", icon: "pain", items: ["Build Kabir’s sense of responsibility.", "Encourage less passive screen time.", "Help him develop an interest in gardening.", "Create meaningful gardening experiences together."] },
+            { title: "Needs", icon: "needs", items: ["A quick overview of plant health and status.", "Simple, reliable plant-care instructions.", "Timely and useful notifications.", "Guidance that supports Kabir’s independence without taking over."] },
+            { title: "Goals", icon: "goals", items: ["Ends up becoming the actual caretaker of the plants.", "Doesn’t always know how to answer Kabir’s gardening questions.", "Gets overwhelmed by excessive notifications.", "Has limited time during rushed weekday mornings."] },
+          ],
         },
       ],
     },

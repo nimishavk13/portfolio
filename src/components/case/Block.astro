@@ -124,7 +124,7 @@ const arrow = '<svg viewBox="0 0 200 80" aria-hidden="true"><path d="M6 70 C 50 
 {b.t === "figure" && (
   <figure class={`fig${b.tall ? " fig--tall" : ""}`} data-reveal>
     {b.tall ? (
-      <div class="fig__scroll" tabindex="0" role="region" aria-label={`${b.image.alt}. Scroll to explore.`}>
+      <div class="fig__scroll" data-lenis-prevent tabindex="0" role="region" aria-label={`${b.image.alt}. Scroll to explore.`}>
         <img src={b.image.src} alt={b.image.alt} width={b.image.w} height={b.image.h} loading="lazy" decoding="async" />
       </div>
     ) : (

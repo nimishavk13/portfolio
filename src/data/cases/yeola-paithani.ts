@@ -62,7 +62,7 @@ const study: CaseStudy = {
         },
         {
           t: "persona", tag: "Persona · Buyer",
-          photo: { src: v("ye-buyer"), alt: "Shalini, smiling, in a blue saree", w: 423, h: 423 },
+          photo: { src: v("ye-buyer"), alt: "Shalini, smiling, in a yellow kurta", w: 664, h: 806 },
           name: "Shalini Kadam", facts: [["Age", "30"], ["Location", "Mumbai"], ["Occupation", "Housewife"]],
           scenario: "Shalini struggles to trust and choose authentic handloom products due to a lack of clear information and reliable verification.",
           cols: [

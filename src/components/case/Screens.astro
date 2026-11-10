@@ -16,7 +16,11 @@ const { device, intro, items, cvd } = Astro.props;
       <svg width="0" height="0" aria-hidden="true" style="position:absolute"><filter id="deut"><feColorMatrix type="matrix" values="0.625 0.375 0 0 0  0.7 0.3 0 0 0  0 0.3 0.7 0 0  0 0 0 1 0"/></filter></svg>
     </div>
   )}
-  <ul class="scr__row" role="list" data-scr-row>
+  <div class="scr__nav" aria-hidden="true">
+    <button type="button" tabindex="-1" data-scr-prev><svg viewBox="0 0 20 20"><path d="M16 10H4M9 5l-5 5 5 5" /></svg></button>
+    <button type="button" tabindex="-1" data-scr-next><svg viewBox="0 0 20 20"><path d="M4 10h12M11 5l5 5-5 5" /></svg></button>
+  </div>
+  <ul class="scr__row" role="list" tabindex="0" aria-label="Screens, scroll sideways" data-scr-row>
     {items.map((s, i) => (
       <li class="scr__item" data-scr-item style={`--i:${i}`}>
         <div class="scr__frame"><img src={s.src} alt={s.alt} width={s.w} height={s.h} loading="lazy" decoding="async" /></div>

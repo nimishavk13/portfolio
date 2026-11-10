@@ -4,24 +4,32 @@ interface Props { project: Project; facts: [string, string][] }
 const { project: p, facts } = Astro.props;
 ---
 <header class="ch" data-ch>
-  <div class="ch__panel" data-ch-panel>
+  <div class="ch__band">
     <span class="ch__pill ch__pill--a" aria-hidden="true"></span>
     <span class="ch__pill ch__pill--b" aria-hidden="true"></span>
-    <div class="ch__copy">
+    <span class="ch__glow" aria-hidden="true"></span>
+    <div class="ch__in">
       <a class="ch__back" href="/#work"><span aria-hidden="true">←</span> All work</a>
-      <p class="ch__kicker" data-ch-in>Project {p.n} : {p.kicker}</p>
-      <p class="ch__meta" data-ch-in>{p.meta.map((m, k) => <>{k > 0 && <b aria-hidden="true">|</b>}<span>{m}</span></>)}</p>
-      <h1 class="ch__title" data-ch-title aria-label={p.title}>{p.title.split(" ").map((w) => <span class="w" aria-hidden="true">{w.split("").map((c) => <span>{c}</span>)}</span>)}</h1>
-      <p class="ch__intro" data-ch-in>{p.intro}</p>
-      <span class="ch__type" data-ch-in>{p.type}</span>
+      <div class="ch__grid">
+        <div>
+          <p class="ch__kicker" data-ch-in>Project {p.n} : {p.kicker}</p>
+          <h1 class="ch__title" data-ch-title aria-label={p.title}>{p.title.split(" ").map((w) => <span class="w" aria-hidden="true">{w.split("").map((c) => <span>{c}</span>)}</span>)}</h1>
+        </div>
+        <div class="ch__side">
+          <p class="ch__intro" data-ch-in>{p.intro}</p>
+          <ul class="ch__meta" role="list" data-ch-in>{p.meta.map((m) => <li>{m}</li>)}<li class="ch__type">{p.type}</li></ul>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="ch__media">
-    <img src={p.hero} alt={p.imageAlt} width="1200" height="1400" fetchpriority="high" decoding="async" data-ch-img />
+  <div class="ch__stage">
+    <div class="ch__frame" data-ch-frame>
+      <img src={p.image} alt={p.imageAlt} width="1400" height="900" fetchpriority="high" decoding="async" data-ch-img />
+    </div>
     <span class="ch__lens" data-ch-lens aria-hidden="true"></span>
     <span class="ch__dot" data-ch-dot aria-hidden="true"></span>
   </div>
 </header>
-<dl class="facts wrap">
+<dl class="facts">
   {facts.map(([k, v]) => <div data-reveal><dt>{k}</dt><dd>{v}</dd></div>)}
 </dl>

@@ -27,6 +27,20 @@ function interactions() {
   };
   addEventListener("scroll", prog, { passive: true }); prog();
 
+  // screen strips: buttons + drag to scroll
+  $$("[data-scr]").forEach((scr) => {
+    const row = scr.querySelector<HTMLElement>("[data-scr-row]");
+    if (!row) return;
+    const by = (d: number) => row.scrollBy({ left: d * row.clientWidth * 0.8, behavior: "smooth" });
+    scr.querySelector("[data-scr-prev]")?.addEventListener("click", () => by(-1));
+    scr.querySelector("[data-scr-next]")?.addEventListener("click", () => by(1));
+    let down = false, sx = 0, sl = 0, moved = false;
+    row.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse") return; down = true; moved = false; sx = e.clientX; sl = row.scrollLeft; });
+    addEventListener("pointermove", (e) => { if (!down) return; const dx = e.clientX - sx; if (Math.abs(dx) > 4) { moved = true; row.classList.add("is-drag"); } row.scrollLeft = sl - dx; });
+    addEventListener("pointerup", () => { down = false; row.classList.remove("is-drag"); });
+    row.addEventListener("click", (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+  });
+
   // sketch / final compare
   $$("[data-cmp]").forEach((f) => {
     const r = f.querySelector<HTMLInputElement>("[data-cmp-range]")!;
@@ -81,16 +95,19 @@ export function initCase() {
   interactions();
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   gsap.registerPlugin(ScrollTrigger);
+  gsap.config({ nullTargetWarn: false });
   const st = (trigger: Element | string, start = "top 78%") => ({ trigger, start });
 
   // hero entrance
   gsap.timeline({ defaults: { ease: "expo.out" } })
-    .from("[data-ch-img]", { scale: 1.25, duration: 1.8 }, 0)
+    .from("[data-ch-frame]", { y: 140, opacity: 0, duration: 1.5 }, 0.2)
+    .from("[data-ch-img]", { scale: 1.3, duration: 2 }, 0.2)
     .from("[data-ch-title] .w span", { yPercent: 110, opacity: 0, rotate: 8, duration: 1.1, stagger: 0.035 }, 0.15)
     .from("[data-ch-in]", { y: 24, opacity: 0, duration: 0.9, stagger: 0.08 }, 0.25)
     .from("[data-ch-lens]", { scale: 0, duration: 1.4, ease: "back.out(1.4)" }, 0.5)
     .from("[data-ch-dot]", { scale: 0, duration: 1, ease: "back.out(2)" }, 0.8);
-  gsap.to("[data-ch-img]", { yPercent: 10, ease: "none", scrollTrigger: { trigger: "[data-ch]", start: "top top", end: "bottom top", scrub: true } });
+  gsap.to("[data-ch-img]", { yPercent: 8, ease: "none", scrollTrigger: { trigger: "[data-ch-frame]", start: "top bottom", end: "bottom top", scrub: true } });
+  gsap.to("[data-ch-lens]", { y: 90, ease: "none", scrollTrigger: { trigger: "[data-ch-frame]", start: "top 80%", end: "bottom top", scrub: true } });
 
   // section heading tabs slide in
   $$(".cs__title .tab").forEach((t) => gsap.from(t, { xPercent: -100, duration: 0.9, ease: "power3.out", scrollTrigger: st(t, "top 85%") }));
@@ -121,7 +138,7 @@ export function initCase() {
   // screens: stagger + gentle depth
   $$("[data-scr-row]").forEach((row) => {
     const items = $$("[data-scr-item]", row);
-    gsap.from(items, { y: 90, opacity: 0, rotate: (i: number) => (i % 2 ? 3 : -3), duration: 1, stagger: 0.1, ease: "power3.out", scrollTrigger: st(row, "top 82%") });
+    gsap.from(items, { x: 120, opacity: 0, duration: 1.1, stagger: 0.08, ease: "power3.out", scrollTrigger: st(row, "top 85%") });
   });
 
   // Little Roots ecosystem
@@ -129,8 +146,8 @@ export function initCase() {
     gsap.fromTo(c.querySelector("[data-wire]"), { strokeDashoffset: 1 }, { strokeDashoffset: 0, ease: "none", scrollTrigger: { trigger: c, start: "top 75%", end: "bottom 60%", scrub: 0.6 } });
     gsap.from($$("[data-node]", c), { x: (i: number) => (i % 2 ? 60 : -60), opacity: 0, duration: 0.9, stagger: 0.18, ease: "power3.out", scrollTrigger: st(c) });
   });
-  gsap.from("[data-journey]", { scale: 0.6, opacity: 0, duration: 0.5, stagger: 0.07, ease: "back.out(2)", scrollTrigger: st(".eco__journey") });
-  gsap.from("[data-spot]", { scale: 0, duration: 0.6, stagger: 0.08, ease: "back.out(2.4)", scrollTrigger: st(".kit__photo", "top 60%") });
+  if (document.querySelector(".eco__journey")) gsap.from("[data-journey]", { scale: 0.6, opacity: 0, duration: 0.5, stagger: 0.07, ease: "back.out(2)", scrollTrigger: st(".eco__journey") });
+  if (document.querySelector(".kit__photo")) gsap.from("[data-spot]", { scale: 0, duration: 0.6, stagger: 0.08, ease: "back.out(2.4)", scrollTrigger: st(".kit__photo", "top 60%") });
 
   // how it works
   $$("[data-how]").forEach((h) => {

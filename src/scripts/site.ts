@@ -1,7 +1,10 @@
 // Shared behaviour for every page: reveal-on-scroll, nav hide/show, mobile menu,
 // active section in the nav, copy-email button.
+import { initSmooth, getLenis } from "./smooth";
+
 export function initSite() {
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  initSmooth();
 
   // reveal
   const els = document.querySelectorAll<HTMLElement>("[data-reveal]");
@@ -38,6 +41,7 @@ export function initSite() {
     menu.hidden = !open;
     document.body.classList.toggle("menu-open", open);
     document.body.style.overflow = open ? "hidden" : "";
+    const l = getLenis(); if (l) (open ? l.stop() : l.start());
   };
   toggle?.addEventListener("click", () => setMenu(toggle.getAttribute("aria-expanded") !== "true"));
   menu?.addEventListener("click", (e) => { if ((e.target as HTMLElement).closest("a")) setMenu(false); });

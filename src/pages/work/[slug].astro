@@ -41,6 +41,7 @@ const style = [
       <section class="cs" id={s.id} data-cs aria-labelledby={`${s.id}-h`}>
         <div class="wrap">
           <header class="cs__head">
+            <p class="cs__n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</p>
             <h2 class="cs__title" id={`${s.id}-h`} data-reveal><i class="tab" aria-hidden="true"></i>{s.title}</h2>
             {s.sub && <p class="cs__sub" data-reveal style="--d:80ms"><span aria-hidden="true"></span>{s.sub}</p>}
           </header>

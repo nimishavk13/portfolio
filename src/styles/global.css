@@ -78,3 +78,9 @@ button { font: inherit; color: inherit; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   .js [data-reveal] { opacity: 1 !important; transform: none !important; }
 }
+
+/* Lenis */
+html.lenis-on, html.lenis-on body { height: auto; }
+.lenis-on.lenis-smooth { scroll-behavior: auto !important; }
+.lenis-on.lenis-stopped { overflow: clip; }
+.lenis-on [data-lenis-prevent] { overscroll-behavior: contain; }
