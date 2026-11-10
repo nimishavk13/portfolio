@@ -48,10 +48,11 @@ const tools = [["Figma", "tool-figma"], ["Illustrator", "tool-illustrator"], ["P
 
 <style>
   .about { position: relative; overflow: hidden; padding-block: var(--section); }
+  .about > .wrap { max-width: calc(1320px + 2 * var(--gx)); }
   .about__wash { position: absolute; right: 0; top: 0; width: 46vw; height: 32vw; pointer-events: none; background: radial-gradient(80% 90% at 100% 0%, rgba(51, 110, 249, 0.6), rgba(118, 185, 255, 0.28) 45%, rgba(255, 255, 255, 0) 80%); }
   .about__title { position: relative; font: 800 clamp(44px, 5.6vw, 80px)/1 var(--f-head); letter-spacing: -0.035em; margin-bottom: clamp(28px, 3.4vw, 48px); }
   .about__title span { display: inline-block; }
-  .trio { position: relative; display: grid; grid-template-columns: 36fr 30fr 26fr; gap: clamp(14px, 1.6vw, 22px); align-items: stretch; }
+  .trio { position: relative; display: grid; grid-template-columns: 33fr 37fr 25fr; gap: clamp(14px, 1.6vw, 22px); align-items: stretch; }
   .trio h3 { font: 700 clamp(26px, 2.6vw, 38px)/1.1 var(--f-head); }
 
   .edu { position: relative; overflow: hidden; display: flex; flex-direction: column; padding: clamp(28px, 2.8vw, 40px) 0 clamp(28px, 2.8vw, 40px); border-radius: clamp(22px, 2vw, 30px); color: #fff; background: linear-gradient(170deg, #1f5fcc 0%, #1a4fa8 34%, #123a7e 66%, #0e2a5c 100%); }
@@ -65,19 +66,19 @@ const tools = [["Figma", "tool-figma"], ["Illustrator", "tool-illustrator"], ["P
 
   .skills { position: relative; padding: clamp(28px, 2.8vw, 40px) clamp(22px, 2.4vw, 32px); border-radius: clamp(22px, 2vw, 30px); background: #d3ddf1; }
   .skills h3 { color: var(--c-ink); margin-bottom: clamp(18px, 2vw, 26px); }
-  .skills h4 { display: flex; align-items: center; gap: 8px; font: 700 clamp(16px, 1.3vw, 19px)/1 var(--f-head); color: var(--c-ink); margin-bottom: 12px; }
+  .skills h4 { display: flex; align-items: center; gap: 8px; font: 700 clamp(17px, 1.4vw, 21px)/1 var(--f-head); color: var(--c-ink); margin-bottom: 16px; }
   .skills h4 i { width: 12px; height: 12px; border-radius: 50%; background: var(--c-blue); }
-  .skills ul { list-style: none; display: flex; flex-wrap: wrap; gap: 7px 8px; }
-  .skills li { padding: 5px 14px; border-radius: var(--r-pill); background: #fff; font: 400 12.5px/1.3 var(--f-head); color: var(--c-blue); transition: background var(--dur-fast), color var(--dur-fast), transform var(--dur-fast) var(--ease-out); }
-  .skills li:hover { background: var(--c-blue); color: #fff; transform: translateY(-2px); }
+  .skills ul { list-style: none; display: flex; flex-wrap: wrap; gap: 9px 8px; }
+  .skills li { padding: 7px 14px; border-radius: var(--r-pill); background: #fff; font: 400 clamp(12.5px, 0.85vw, 14px)/1.25 var(--f-head); color: var(--c-blue); box-shadow: 0 2px 6px -3px rgba(29, 89, 187, 0.35); transition: background var(--dur-fast), color var(--dur-fast), translate var(--dur-fast) var(--ease-out); }
+  .skills li:hover { background: var(--c-blue); color: #fff; translate: 0 -2px; }
   .skills hr { border: 0; height: 1.5px; background: var(--c-blue); opacity: 0.75; margin: 24px 8px; }
   .skills__cursor { position: absolute; right: 22px; bottom: -22px; width: clamp(38px, 3.4vw, 50px); fill: var(--c-blue); rotate: 4deg; }
 
   .tools { position: relative; overflow: hidden; padding: clamp(28px, 2.8vw, 40px) clamp(22px, 2.4vw, 32px); border-radius: clamp(22px, 2vw, 30px); color: #fff; background: radial-gradient(70% 55% at 0% 72%, rgba(42, 86, 170, 0.75), rgba(16, 24, 43, 0) 70%), radial-gradient(60% 40% at 100% 10%, rgba(42, 70, 130, 0.5), rgba(16, 24, 43, 0) 70%), #121a2c; }
   .tools h3 { color: #fff; margin-bottom: clamp(18px, 2vw, 26px); }
   .tools ul { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-  .tools li { display: grid; justify-items: center; gap: 10px; padding: 16px 8px 12px; border-radius: 14px; background: rgba(255, 255, 255, 0.05); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.09); font: 400 13px/1 var(--f-head); transition: transform 400ms var(--ease-out), background 400ms; }
-  .tools li:hover { transform: translateY(-4px); background: rgba(255, 255, 255, 0.1); }
+  .tools li { display: grid; justify-items: center; gap: 10px; padding: 16px 8px 12px; border-radius: 14px; background: rgba(255, 255, 255, 0.05); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.09); font: 400 13px/1 var(--f-head); transition: translate 400ms var(--ease-out), background 400ms; }
+  .tools li:hover { translate: 0 -4px; background: rgba(255, 255, 255, 0.1); }
   .tools img { width: clamp(44px, 3.6vw, 56px); height: auto; aspect-ratio: 1; border-radius: 10px; }
 
   @media (max-width: 1000px) { .trio { grid-template-columns: 1fr 1fr; } .tools { grid-column: span 2; } .tools ul { grid-template-columns: repeat(6, minmax(0, 1fr)); } }

@@ -91,9 +91,9 @@ export function initHome() {
   /* ---------- about ---------- */
   gsap.from("[data-about-title] span", { yPercent: 60, opacity: 0, duration: 1, stagger: 0.12, ease: "power3.out", scrollTrigger: { trigger: "[data-about-title]", start: "top 85%" } });
   gsap.from("[data-panel]", { y: 100, rotation: (i: number) => [-4, 2, 4][i], opacity: 0, duration: 1.1, stagger: 0.14, ease: "power3.out", scrollTrigger: { trigger: ".trio", start: "top 82%" } });
-  gsap.from("[data-chip]", { scale: 0.4, opacity: 0, duration: 0.5, stagger: 0.03, ease: "back.out(2.2)", scrollTrigger: { trigger: ".skills", start: "top 72%" } });
+  gsap.fromTo("[data-chip]", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, stagger: 0.03, ease: "back.out(2.2)", clearProps: "transform,opacity", scrollTrigger: { trigger: ".trio", start: "top 70%", once: true } });
   gsap.from("[data-cursor]", { x: -120, y: -160, rotation: -40, opacity: 0, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: ".skills", start: "top 60%" } });
-  gsap.from("[data-tool]", { y: 40, scale: 0.7, opacity: 0, duration: 0.7, stagger: 0.07, ease: "back.out(1.8)", scrollTrigger: { trigger: ".tools", start: "top 72%" } });
+  gsap.fromTo("[data-tool]", { y: 40, scale: 0.7, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.7, stagger: 0.07, ease: "back.out(1.8)", clearProps: "transform,opacity", scrollTrigger: { trigger: ".trio", start: "top 70%", once: true } });
 
   /* ---------- process ---------- */
   gsap.fromTo("[data-flow-path]", { strokeDashoffset: 1 }, { strokeDashoffset: 0, ease: "none", scrollTrigger: { trigger: "[data-flow]", start: "top 80%", end: "bottom 60%", scrub: 0.8 } });
@@ -111,10 +111,24 @@ export function initHome() {
     gsap.from(row.querySelectorAll(".row__copy > *"), { x: i % 2 ? -50 : 50, opacity: 0, duration: 1, stagger: 0.08, ease: "power3.out", scrollTrigger: { trigger: row, start: "top 70%" } });
   });
 
+  /* ---------- work index: active project + progress ---------- */
+  const wlinks = all("[data-windex-link]");
+  const wn = document.querySelector<HTMLElement>("[data-windex-n]");
+  const setActive = (k: number) => {
+    wlinks.forEach((l, j) => l.setAttribute("aria-current", String(j === k)));
+    if (wn) wn.textContent = String(k + 1).padStart(2, "0");
+    const a = wlinks[k], ol = a?.closest("ol");
+    if (a && ol && ol.scrollWidth > ol.clientWidth) ol.scrollTo({ left: a.offsetLeft - 12, behavior: "smooth" });
+  };
+  all("[data-row]").forEach((row, k) => ScrollTrigger.create({ trigger: row, start: "top 55%", end: "bottom 55%", onToggle: (st) => st.isActive && setActive(k) }));
+  gsap.fromTo("[data-windex-bar]", { scaleX: 0.02 }, { scaleX: 1, ease: "none", scrollTrigger: { trigger: "[data-rows]", start: "top 60%", end: "bottom 60%", scrub: true } });
+  gsap.from("[data-windex]", { y: 30, opacity: 0, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: "[data-windex]", start: "top 90%", once: true } });
+
   /* ---------- contact: words fill in as you read ---------- */
   const say = gsap.timeline({ scrollTrigger: { trigger: "[data-say]", start: "top 85%", end: "bottom 50%", scrub: 0.6 } });
   words.forEach((w, i) => say.to(w, { color: fill(w), duration: 0.3, ease: "none" }, i * 0.1));
   gsap.fromTo("[data-cglow]", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, ease: "none", scrollTrigger: { trigger: ".contact", start: "top bottom", end: "center center", scrub: true } });
 
   addEventListener("load", () => ScrollTrigger.refresh());
+  document.fonts?.ready.then(() => ScrollTrigger.refresh());
 }

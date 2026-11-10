@@ -9,9 +9,19 @@ import { projects } from "../../data/projects";
       <p class="work__intro" data-reveal style="--d:120ms">Four individual projects, from a gardening kit for children to a trusted home for a 2,000-year-old craft.</p>
     </div>
 
-    <ol class="rows" role="list">
+    <nav class="windex" aria-label="Projects in this list" data-windex>
+      <p class="windex__count"><b data-windex-n>01</b><span>/ 0{projects.length}</span></p>
+      <ol role="list">
+        {projects.map((p, i) => (
+          <li><a href={`#p-${p.slug}`} style={`--pc:${p.color};--ps:${p.soft}`} data-windex-link={i} aria-current={i === 0 ? "true" : "false"}><i aria-hidden="true"></i>{p.title}</a></li>
+        ))}
+      </ol>
+      <span class="windex__bar" aria-hidden="true"><span data-windex-bar></span></span>
+    </nav>
+
+    <ol class="rows" role="list" data-rows>
       {projects.map((p, i) => (
-        <li class={`row${i % 2 ? " row--flip" : ""}`} data-row style={`--pc:${p.color};--ps:${p.soft};--pi:${p.ink}`}>
+        <li class={`row${i % 2 ? " row--flip" : ""}`} id={`p-${p.slug}`} data-row style={`--pc:${p.color};--ps:${p.soft};--pi:${p.ink}`}>
           <a class="row__media" href={`/work/${p.slug}`} tabindex="-1" aria-hidden="true" data-row-media>
             <span class="row__frame" data-row-frame><img src={p.image} alt="" width="1400" height="900" loading="lazy" decoding="async" data-row-img /></span>
             <span class="row__lens" data-row-lens></span>
@@ -36,11 +46,32 @@ import { projects } from "../../data/projects";
 
 <style>
   .work { padding-block: var(--section); }
-  .work__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px 48px; margin-bottom: clamp(48px, 6vw, 88px); }
+  .work__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px 48px; margin-bottom: 28px; }
   .work__title { font: 800 clamp(44px, 5.6vw, 80px)/1 var(--f-head); letter-spacing: -0.035em; }
   .work__intro { max-width: 26em; font: 400 var(--fs-lead)/1.55 var(--f-head); color: var(--c-muted); }
 
+  /* sticky index: shows it's a list of four and where you are in it */
+  .windex { position: sticky; z-index: 20; top: calc(var(--nav-h) + 4px); display: flex; align-items: center; gap: 16px; margin-bottom: clamp(48px, 6vw, 80px); padding: 8px 8px 8px 20px; border-radius: var(--r-pill); background: rgba(255, 255, 255, 0.88); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: 0 0 0 1px rgba(29, 89, 187, 0.1), 0 14px 30px -22px rgba(29, 89, 187, 0.5); transition: top 420ms var(--ease-out); overflow: hidden; }
+  :global(body:has(.nav.is-hidden)) .windex { top: 14px; }
+  .windex__count { flex: none; display: flex; align-items: baseline; gap: 6px; font: 500 14px/1 var(--f-head); color: var(--c-muted); font-variant-numeric: tabular-nums; }
+  .windex__count b { font: 700 20px/1 var(--f-head); color: var(--c-ink); }
+  .windex ol { list-style: none; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; flex: 1; justify-content: flex-end; }
+  .windex ol::-webkit-scrollbar { display: none; }
+  .windex a { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; min-height: 42px; padding: 0 16px; border-radius: var(--r-pill); text-decoration: none; font: 500 15px/1 var(--f-head); color: var(--c-text); transition: background 350ms var(--ease-out), color 350ms; }
+  .windex a i { width: 9px; height: 9px; border-radius: 50%; background: var(--pc); transition: background 350ms; }
+  .windex a:hover { background: var(--ps); }
+  .windex a[aria-current="true"] { background: var(--pc); color: #fff; }
+  .windex a[aria-current="true"] i { background: #fff; }
+  .windex__bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(29, 89, 187, 0.08); }
+  .windex__bar span { display: block; height: 100%; background: var(--grad-word); transform-origin: 0 50%; transform: scaleX(0.02); }
+  @media (max-width: 760px) {
+    .windex { gap: 10px; padding-left: 14px; }
+    .windex ol { justify-content: flex-start; }
+    .windex a { padding: 0 12px; font-size: 14px; }
+  }
+
   .rows { list-style: none; display: grid; gap: clamp(72px, 10vw, 140px); }
+  .row { scroll-margin-top: calc(var(--nav-h) + 96px); }
   .row { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
   .row--flip { grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr); }
   .row--flip .row__media { order: 2; }

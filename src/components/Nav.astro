@@ -14,8 +14,10 @@ const pre = isHome ? "" : "/";
       <li><a href={`${pre}#about`} data-nav-link="about">About</a></li>
       <li><a href={`${pre}#process`} data-nav-link="process">Process</a></li>
       <li><a href={`${pre}#work`} data-nav-link="work">Work</a></li>
+      <li><a href="/resume.pdf" class="nav__resume" target="_blank" rel="noopener">Resume <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 14 14 6M7.5 6H14v6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr-only"> (PDF, opens in a new tab)</span></a></li>
       <li><a href={`${pre}#contact`} class="nav__cta">Let’s talk</a></li>
     </ul>
+    <a href="/resume.pdf" class="nav__resume nav__resume--m" target="_blank" rel="noopener">Resume <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 14 14 6M7.5 6H14v6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr-only"> (PDF, opens in a new tab)</span></a>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" data-menu-toggle>
       <span class="sr-only">Menu</span><i></i><i></i>
     </button>
@@ -30,6 +32,7 @@ const pre = isHome ? "" : "/";
       <li><a href={`${pre}#process`}>Process</a></li>
       <li><a href={`${pre}#about`}>About</a></li>
       <li><a href={`${pre}#contact`}>Contact</a></li>
+      <li><a href="/resume.pdf" target="_blank" rel="noopener">Resume ↗<span class="sr-only"> (PDF, opens in a new tab)</span></a></li>
     </ul>
   </div>
 </header>
@@ -58,6 +61,11 @@ const pre = isHome ? "" : "/";
   .nav__links a:not(.nav__cta):hover { background: var(--c-wash); }
   .nav__links a[aria-current="true"] { color: var(--c-blue); }
   .nav__links a[aria-current="true"]::after { content: ""; position: absolute; left: 50%; bottom: 6px; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%; background: var(--c-blue); }
+  .nav__links .nav__resume, .nav__resume { display: inline-flex; align-items: center; gap: 6px; min-height: 42px; padding: 0 16px; border-radius: var(--r-pill); text-decoration: none; font: 600 15px/1 var(--f-head); color: var(--c-blue); box-shadow: inset 0 0 0 1.5px var(--c-blue); margin-left: 6px; transition: background var(--dur-fast), color var(--dur-fast); }
+  .nav__resume svg { width: 15px; height: 15px; transition: translate var(--dur-fast) var(--ease-out); }
+  .nav__links .nav__resume:hover, .nav__resume:hover { background: var(--c-wash); }
+  .nav__resume:hover svg { translate: 2px -2px; }
+  .nav__resume--m { display: none; }
   .nav__cta { background: var(--c-blue); color: #fff !important; margin-left: 6px; }
   .nav__cta:hover { background: #174ea7; }
   .nav__toggle { display: none; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--c-blue); cursor: pointer; position: relative; }
@@ -77,5 +85,7 @@ const pre = isHome ? "" : "/";
   @media (max-width: 760px) {
     .nav__links { display: none; }
     .nav__toggle { display: block; }
+    .nav__resume--m { display: inline-flex; margin-left: auto; min-height: 40px; padding: 0 14px; font-size: 14px; }
+    .nav__inner { gap: 8px; }
   }
 </style>
