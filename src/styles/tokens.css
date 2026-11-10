@@ -1,9 +1,10 @@
 /*
-  Design tokens for the rebuilt site, taken from Nimisha's portfolio PDF.
-  Type is deliberately calmer than the 1920px slides: one big moment per section, everything else at reading size.
+  Design tokens, taken from Nimisha's portfolio PDF.
+  Bright white canvas, her brand blue + gradient word, Poppins headings, Figtree for reading.
+  Type is calmer than the 1920px slides: one big moment per section, everything else at reading size.
 */
 :root {
-  /* colour — her portfolio palette */
+  /* colour: her portfolio palette */
   --c-ink: #0b0b0f;
   --c-text: #23263a;
   --c-muted: #5a6078;
@@ -11,74 +12,49 @@
   --c-blue-light: #76b9ff;
   --c-blue-ui: #336ef9;
   --c-navy: #10182b;
-  --c-navy-deep: #0d2855;
-  --c-sky: #d3ddf1;      /* skills card */
-  --c-mist: #dce7fb;     /* process cards */
+  --c-sky: #d3ddf1;
+  --c-mist: #dce7fb;
   --c-wash: #eef3fc;
   --c-line: #e3e8f2;
   --c-white: #ffffff;
   --grad-word: linear-gradient(90deg, #1d59bb 39%, #76b9ff 100%);
-  --grad-card: linear-gradient(160deg, #1f5fc4 0%, #173f8a 45%, #0d2855 100%);
+  --grad-card: linear-gradient(160deg, #2466cf 0%, #1a4ba3 50%, #123a82 100%);
 
-  /* project colours (from each cover slide) */
-  --lr: #315e3b; --lr-soft: #e1e9d6; --lr-pop: #ea8a70;
-  --me: #1e5bbb; --me-soft: #dfe7f6;
-  --ho: #a24a6f; --ho-soft: #f3e3eb;
-  --ye: #6a2645; --ye-soft: #e8dade;
+  /* project colours (from each cover slide + design system) */
+  --lr: #315e3b; --lr-soft: #e1e9d6; --lr-pop: #ea8a70; --lr-blush: #fbe9e4;
+  --me: #1e5bbb; --me-soft: #dfe7f6; --me-navy: #092c4c; --me-butter: #fff6d9;
+  --ho: #a24a6f; --ho-soft: #fbe4ec; --ho-plum: #804595; --ho-mist: #efdde5;
+  --ye: #6a2645; --ye-soft: #e8dade; --ye-silk: #fcefd4;
 
   /* type */
   --f-head: "Poppins", system-ui, sans-serif;
   --f-body: "Figtree", system-ui, sans-serif;
-  --fs-hero: clamp(44px, 6vw, 84px);
-  --fs-h2: clamp(34px, 4.2vw, 56px);
-  --fs-h3: clamp(22px, 2vw, 28px);
-  --fs-lead: clamp(18px, 1.5vw, 21px);
+  --fs-mega: clamp(64px, 14vw, 220px);
+  --fs-hero: clamp(44px, 6.2vw, 88px);
+  --fs-h2: clamp(32px, 4vw, 52px);
+  --fs-h3: clamp(21px, 1.8vw, 26px);
+  --fs-lead: clamp(18px, 1.45vw, 21px);
   --fs-body: 17px;
-  --fs-small: 14px;
+  --fs-small: 15px;
   --fs-label: 13px;
 
   /* space (4px scale) */
   --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px;
   --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px;
-  --section: clamp(72px, 9vw, 128px);
+  --section: clamp(80px, 10vw, 140px);
 
   /* shape */
-  --r-sm: 12px; --r-md: 20px; --r-lg: 28px; --r-xl: 36px; --r-pill: 999px;
-  --shadow-soft: 0 24px 48px -28px rgba(29, 89, 187, 0.35);
-  --shadow-card: 0 1px 0 rgba(11, 11, 15, 0.04), 0 18px 40px -24px rgba(11, 11, 15, 0.22);
+  --r-sm: 14px; --r-md: 22px; --r-lg: 30px; --r-xl: 40px; --r-pill: 999px;
+  --shadow-soft: 0 28px 56px -32px rgba(29, 89, 187, 0.45);
+  --shadow-card: 0 1px 0 rgba(11, 11, 15, 0.04), 0 22px 44px -26px rgba(11, 11, 15, 0.28);
+
+  /* motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 280ms;
+  --dur: 700ms;
 
   /* layout */
   --wrap: 1200px;
   --gx: clamp(20px, 4vw, 48px);
+  --nav-h: 76px;
 }
-
-.wrap {
-  max-width: calc(var(--wrap) + 2 * var(--gx));
-  margin-inline: auto;
-  padding-inline: var(--gx);
-}
-.gw {
-  background: var(--grad-word);
-  -webkit-background-clip: text; background-clip: text;
-  color: transparent;
-}
-.sec-title {
-  font: 700 var(--fs-h2) / 1.05 var(--f-head);
-  letter-spacing: -0.02em;
-  color: var(--c-ink);
-}
-.pill-label {
-  display: inline-flex; align-items: center;
-  font: 600 15px/1 var(--f-head); color: var(--c-blue);
-  border: 1.5px solid var(--c-blue); border-radius: var(--r-pill);
-  padding: 10px 20px;
-}
-.arrow-btn {
-  display: inline-grid; place-items: center; flex: none;
-  width: 48px; height: 48px; border-radius: 50%;
-  border: 1.5px solid var(--c-blue-ui); color: var(--c-blue-ui);
-  transition: background 280ms var(--ease-out), color 280ms var(--ease-out), transform 280ms var(--ease-out);
-}
-.arrow-btn svg { width: 20px; height: 20px; }
-
-img { height: auto; }

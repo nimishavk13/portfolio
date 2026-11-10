@@ -1,0 +1,147 @@
+---
+/*
+  Opening: her cover slide ("UI/UX Design Portfolio 2026") hands over to her
+  introduction slide ("I am Nimisha") as you scroll. Desktop pins the stage and
+  scrubs the hand-over; phones and reduced motion show both parts one after the other.
+*/
+import { projects } from "../../data/projects";
+const tiles = projects.map((p) => ({ ...p }));
+const introWords = "an emerging UX designer who loves breaking down messy problems and turning them into seamless, intuitive experiences using creative thinking and AI tools to bring ideas to life.".split(" ");
+const strong = new Set(["emerging", "UX", "designer", "seamless,", "intuitive", "experiences", "creative", "thinking", "AI", "tools"]);
+---
+<section class="hero" id="top" data-hero aria-label="Introduction">
+  <div class="hero__stage" data-stage>
+    <div class="hero__bg" aria-hidden="true">
+      <span class="glow glow--a" data-glow-a></span>
+      <span class="glow glow--b" data-glow-b></span>
+      <svg class="ring ring--a" viewBox="0 0 200 200" data-ring-a><circle cx="100" cy="100" r="98" pathLength="1" /></svg>
+      <svg class="ring ring--b" viewBox="0 0 200 200" data-ring-b><circle cx="100" cy="100" r="98" pathLength="1" /></svg>
+    </div>
+
+    <!-- 1 · cover -->
+    <div class="cover" data-cover>
+      <p class="cover__eyebrow" data-cover-eyebrow>UI/UX Design</p>
+      <h1 class="cover__title" aria-label="Nimisha Vk, UI/UX Design Portfolio 2026">
+        <span class="cover__word" data-cover-word aria-hidden="true">{"Portfolio".split("").map((c) => <span class="ch">{c}</span>)}</span>
+        <span class="cover__year" data-cover-year aria-hidden="true">2026</span>
+      </h1>
+      <p class="cover__by" data-cover-by><span>Nimisha Vk</span><i aria-hidden="true"></i><span>UI/UX Designer</span><i aria-hidden="true"></i><span>Pune, India</span></p>
+
+      <ul class="tiles" role="list" aria-label="Projects">
+        {tiles.map((p, i) => (
+          <li class={`tile tile--${i + 1}`} data-tile style={`--pc:${p.color}`}>
+            <a href={`/work/${p.slug}`}>
+              <img src={p.image} alt="" width="640" height="420" loading="eager" decoding="async" />
+              <span>{p.title}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <a class="cover__cue" href="#intro" data-cue>
+        <span>Scroll</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15M6 13l6 6 6-6" /></svg>
+      </a>
+    </div>
+
+    <!-- 2 · introduction -->
+    <div class="intro" id="intro" data-intro>
+      <div class="intro__copy">
+        <p class="pill-label" data-intro-pill>Introduction</p>
+        <h2 class="intro__title" data-intro-title><span class="iw"><span>I</span></span> <span class="iw"><span>am</span></span> <span class="iw"><span class="gw">Nimisha</span></span></h2>
+        <p class="intro__lede" data-intro-lede>
+          {introWords.map((w) => <><span class="iw"><span class={strong.has(w) ? "b" : undefined}>{w}</span></span>{" "}</>)}
+        </p>
+        <p class="intro__sign" data-intro-sign>Let’s build something impactful together.</p>
+        <div class="intro__ctas" data-intro-ctas>
+          <a class="btn" href="#work">See my work <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="btn btn--ghost" href="#about">About me</a>
+        </div>
+      </div>
+      <figure class="intro__photo" data-intro-photo>
+        <span class="intro__badge" data-intro-badge aria-hidden="true">UX</span>
+        <img src="/img/v2/nimisha.webp" width="656" height="764" alt="Nimisha smiling, chin resting on her hand, in a café full of hanging plants" fetchpriority="high" decoding="async" />
+        <figcaption class="intro__loc" data-intro-loc><span>Based in</span>Pune, India</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero { position: relative; }
+  .hero__stage { position: relative; overflow: hidden; }
+  .hero__bg { position: absolute; inset: 0; pointer-events: none; }
+  .glow { position: absolute; border-radius: 50%; filter: blur(10px); }
+  .glow--a { width: 62vw; height: 62vw; left: -24vw; top: -30vw; background: radial-gradient(circle, rgba(64, 128, 230, 0.55) 0%, rgba(118, 185, 255, 0.25) 40%, rgba(255, 255, 255, 0) 70%); }
+  .glow--b { width: 54vw; height: 54vw; right: -22vw; bottom: -26vw; background: radial-gradient(circle, rgba(118, 185, 255, 0.5) 0%, rgba(118, 185, 255, 0.18) 42%, rgba(255, 255, 255, 0) 70%); }
+  .ring { position: absolute; fill: none; stroke: var(--c-blue-ui); stroke-width: 0.7; opacity: 0.4; }
+  .ring circle { stroke-dasharray: 1; stroke-dashoffset: 0; }
+  .ring--a { width: min(44vw, 640px); right: -12vw; top: -14vw; }
+  .ring--b { width: min(34vw, 480px); left: -12vw; bottom: -10vw; }
+
+  /* ---- cover ---- */
+  .cover { position: relative; min-height: 100svh; display: grid; place-items: center; align-content: center; text-align: center; padding: calc(var(--nav-h) + 40px) var(--gx) 120px; }
+  .cover__eyebrow { font: 400 clamp(20px, 2.4vw, 34px)/1 var(--f-head); color: var(--c-ink); letter-spacing: -0.01em; }
+  .cover__title { display: flex; align-items: flex-end; justify-content: center; gap: 0.12em; margin: 0.12em 0 0.22em; font: 800 var(--fs-mega)/0.86 var(--f-head); letter-spacing: -0.045em; color: var(--c-ink); position: relative; z-index: 2; }
+  .cover__word { display: inline-flex; }
+  .cover__word .ch { display: inline-block; will-change: transform; }
+  .cover__word .ch:nth-child(n+7) { background: var(--grad-word); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .cover__year { font-size: 0.26em; letter-spacing: -0.02em; line-height: 1; padding-bottom: 0.3em; color: var(--c-blue); }
+  .cover__by { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px 16px; font: 500 clamp(15px, 1.3vw, 18px)/1 var(--f-head); color: var(--c-text); position: relative; z-index: 2; }
+  .cover__by i { width: 6px; height: 6px; border-radius: 50%; background: var(--c-blue-light); }
+
+  .tiles { list-style: none; position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+  .tile { position: absolute; width: clamp(150px, 15vw, 230px); pointer-events: auto; will-change: transform; transition: rotate 600ms var(--ease-out); }
+  .tile:hover { rotate: 0deg !important; }
+  .tile a { display: block; text-decoration: none; border-radius: 18px; overflow: hidden; background: #fff; box-shadow: var(--shadow-card); transition: translate 500ms var(--ease-out), box-shadow 500ms var(--ease-out); }
+  .tile img { width: 100%; aspect-ratio: 16 / 10.5; object-fit: cover; }
+  .tile span { display: flex; align-items: center; gap: 8px; padding: 9px 12px 10px; font: 600 13px/1 var(--f-head); color: var(--c-ink); }
+  .tile span::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--pc); flex: none; }
+  .tile a:hover { translate: 0 -8px; box-shadow: 0 30px 50px -26px rgba(11, 11, 15, 0.45); }
+  .tile--1 { left: 6%; top: 21%; rotate: -8deg; }
+  .tile--2 { right: 7%; top: 18%; rotate: 7deg; }
+  .tile--3 { left: 10%; bottom: 13%; rotate: 5deg; }
+  .tile--4 { right: 9%; bottom: 12%; rotate: -6deg; }
+
+  .cover__cue { position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); display: grid; justify-items: center; gap: 6px; text-decoration: none; font: 500 13px/1 var(--f-body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-muted); z-index: 2; }
+  .cover__cue svg { width: 22px; height: 22px; fill: none; stroke: var(--c-blue); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; animation: cue 1.8s var(--ease-out) infinite; }
+  @keyframes cue { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+  /* ---- intro ---- */
+  .intro { position: relative; max-width: calc(var(--wrap) + 2 * var(--gx)); margin-inline: auto; padding: var(--section) var(--gx); display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+  .intro__title { font: 800 var(--fs-hero)/1 var(--f-head); letter-spacing: -0.035em; margin: 22px 0 22px; }
+  .intro__lede { font: 400 clamp(18px, 1.55vw, 22px)/1.6 var(--f-head); color: var(--c-text); max-width: 36em; }
+  .intro__lede .b { color: var(--c-blue); font-weight: 600; }
+  .iw { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+  .iw > span { display: inline-block; }
+  .intro__sign { margin-top: 22px; font: 700 clamp(19px, 1.6vw, 23px)/1.4 var(--f-head); color: var(--c-ink); }
+  .intro__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .intro__photo { position: relative; justify-self: end; width: min(100%, 440px); }
+  .intro__photo img { width: 100%; aspect-ratio: 656 / 764; object-fit: cover; border-radius: var(--r-lg); box-shadow: 0 40px 80px -40px rgba(29, 89, 187, 0.6), 0 0 0 10px rgba(255, 255, 255, 0.7); }
+  .intro__badge { position: absolute; top: -26px; right: -22px; z-index: 2; display: grid; place-items: center; width: 88px; height: 88px; border-radius: 22px; background: linear-gradient(140deg, #3f7cf6, #1a46a8); color: #fff; font: 700 30px/1 var(--f-head); transform: rotate(-14deg); box-shadow: 0 18px 30px -12px rgba(29, 89, 187, 0.7), inset 0 2px 0 rgba(255, 255, 255, 0.25); }
+  .intro__loc { position: absolute; left: -44px; bottom: 54px; z-index: 2; padding: 14px 20px; border-radius: 16px; background: #fff; font: 400 16px/1.4 var(--f-head); color: var(--c-ink); box-shadow: 0 20px 40px -20px rgba(11, 11, 15, 0.35); }
+  .intro__loc span { display: block; color: var(--c-blue); font-size: 14px; }
+
+  /* ---- pinned version (set by JS on wide screens with motion allowed) ---- */
+  :global(.hero-pinned) .hero { height: 260vh; }
+  :global(.hero-pinned) .hero__stage { position: sticky; top: 0; height: 100svh; }
+  :global(.hero-pinned) .cover { position: absolute; inset: 0; min-height: 0; }
+  :global(.hero-pinned) .intro { position: absolute; inset: 0; padding-top: calc(var(--nav-h) + 24px); padding-bottom: 32px; }
+
+  @media (max-width: 900px) {
+    .intro { grid-template-columns: 1fr; padding-top: 72px; }
+    .intro__photo { justify-self: center; width: min(86%, 380px); margin-top: 24px; }
+    .intro__loc { left: -14px; bottom: 28px; }
+    .intro__badge { right: -12px; width: 72px; height: 72px; font-size: 25px; }
+    .tile { width: clamp(108px, 27vw, 170px); }
+    .tile span { font-size: 11px; padding: 7px 9px; }
+    .tile--1 { left: 3%; top: 14%; } .tile--2 { right: 3%; top: 12%; }
+    .tile--3 { left: 4%; bottom: 12%; } .tile--4 { right: 4%; bottom: 10%; }
+    .cover { padding-bottom: 150px; }
+  }
+  @media (max-width: 520px) {
+    .tile--1, .tile--2 { top: 11%; }
+    .cover__title { flex-direction: column; align-items: center; gap: 0; }
+    .cover__year { padding: 0; font-size: 0.3em; }
+  }
+</style>

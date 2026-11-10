@@ -1,0 +1,153 @@
+---
+import type { Block as B } from "../../data/case-types";
+import { md } from "../../lib/md";
+import Persona from "./Persona.astro";
+import Screens from "./Screens.astro";
+import DesignSys from "./DesignSys.astro";
+import Ecosystem from "./lr/Ecosystem.astro";
+import Visual from "./lr/Visual.astro";
+import Kit from "./lr/Kit.astro";
+import How from "./lr/How.astro";
+import Sus from "./lr/Sus.astro";
+import Journeys from "./ho/Journeys.astro";
+import { journeys } from "../../data/cases/hormona";
+interface Props { block: B; slug: string }
+const { block: b } = Astro.props;
+const arrow = '<svg viewBox="0 0 200 80" aria-hidden="true"><path d="M6 70 C 50 0, 150 0, 190 56" pathLength="1"/><path d="M178 50 l13 7 -3 -14" /></svg>';
+---
+{b.t === "lead" && <p class="b-lead" data-reveal set:html={md(b.text)} />}
+
+{b.t === "overview" && (
+  <div class="ov" data-ov>
+    {[["Problem", "01", b.problem, b.problemList], ["Impact", "02", b.impact, undefined], ["Solution", "03", b.solution, b.solutionList]].map(([k, n, text, list], i) => (
+      <article class={`ov__card${i === 2 ? " ov__card--sol" : ""}`} data-ov-card>
+        <p class="ov__k">{k}</p>
+        <p class="ov__n" aria-hidden="true">{n}</p>
+        <p class="ov__t">{text}</p>
+        {list && <ul class="ov__list">{(list as string[]).map((x) => <li>{x}</li>)}</ul>}
+      </article>
+    ))}
+    <span class="ov__arc ov__arc--a" set:html={arrow} />
+    <span class="ov__arc ov__arc--b" set:html={arrow} />
+  </div>
+)}
+
+{b.t === "split" && (
+  <div class={`split${b.image ? "" : " split--noimg"}`}>
+    <div class="split__l" data-reveal>
+      <h3 class="split__h" set:html={md(b.heading)} />
+      {b.text && <p class="split__p" set:html={md(b.text)} />}
+      {b.image && <img class="split__img" src={b.image.src} alt={b.image.alt} width={b.image.w} height={b.image.h} loading="lazy" decoding="async" data-float />}
+    </div>
+    <ul class="split__list" role="list">
+      {b.items.map((it, i) => (
+        <li data-reveal style={`--d:${i * 90}ms`}><span class="split__dot" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span><div><h4>{it.title}</h4><p>{it.desc}</p></div></li>
+      ))}
+    </ul>
+    {b.note && <p class="split__note" data-reveal><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg><span set:html={md(b.note)} /></p>}
+  </div>
+)}
+
+{b.t === "quotes" && (
+  <ul class="quotes" role="list">
+    {b.items.map((q, i) => (
+      <li class="quote" data-quote style={`--i:${i}`}>
+        {q.avatar && <img class="quote__av" src={q.avatar.src} alt="" width={q.avatar.w} height={q.avatar.h} loading="lazy" />}
+        <blockquote><p>“{q.q}”</p><footer>— {q.who}</footer></blockquote>
+      </li>
+    ))}
+  </ul>
+)}
+
+{b.t === "insights" && (
+  <div class="ins">
+    <ul class="ins__list" role="list">
+      {b.items.map((x, i) => <li data-quote style={`--i:${i}`}><blockquote><p>“{x}”</p></blockquote></li>)}
+    </ul>
+    <img class="ins__img" src={b.image.src} alt={b.image.alt} width={b.image.w} height={b.image.h} loading="lazy" data-reveal="scale" />
+  </div>
+)}
+
+{b.t === "methods" && (
+  <div class={`methods methods--${b.items.length}`}>
+    {b.items.map((m, i) => (
+      <article class="method" data-reveal style={`--d:${i * 120}ms`}>
+        {m.icon && <img class="method__icon" src={m.icon.src} alt="" width={m.icon.w} height={m.icon.h} loading="lazy" />}
+        <h3>{m.title}<i aria-hidden="true"></i></h3>
+        <p set:html={md(m.text)} />
+        {m.facts && <dl class="method__facts">{m.facts.map((f) => <div><dt>{f.k}</dt><dd>{f.v}</dd></div>)}</dl>}
+      </article>
+    ))}
+  </div>
+)}
+
+{b.t === "persona" && <Persona {...b} />}
+
+{b.t === "problem" && (
+  <div class="prob">
+    <div class="prob__box" data-reveal>
+      <p class="prob__st" set:html={md(b.statement)} />
+      {b.extra && <p class="prob__ex">{b.extra}</p>}
+    </div>
+    <div class="prob__hmw">
+      <img src={b.image.src} alt="" width={b.image.w} height={b.image.h} loading="lazy" data-reveal="scale" />
+      <p data-reveal style="--d:120ms" set:html={md(b.hmw)} />
+    </div>
+  </div>
+)}
+
+{b.t === "features" && (
+  <div class="feat">
+    <div class="feat__l" data-reveal>
+      <p class="feat__h" set:html={md(b.heading)} />
+      {b.text && <p class="feat__p">{b.text}</p>}
+    </div>
+    <div class="feat__r">
+      <p class="feat__tag" data-reveal>Key features</p>
+      <ul role="list">{b.items.map((x, i) => <li data-feat style={`--i:${i}`}><span>{String(i + 1).padStart(2, "0")}</span>{x}</li>)}</ul>
+    </div>
+  </div>
+)}
+
+{b.t === "cards" && (
+  <ul class={`cards cards--${b.cols ?? 3} cards--${b.tone ?? "soft"}`} role="list">
+    {b.items.map((c, i) => (
+      <li class="card-x" data-reveal style={`--d:${(i % 3) * 90}ms`}>
+        {c.n && <span class="card-x__n">{c.n} –</span>}
+        <h3>{c.title}</h3>
+        <p>{c.desc}</p>
+      </li>
+    ))}
+  </ul>
+)}
+
+{b.t === "figure" && (
+  <figure class={`fig${b.tall ? " fig--tall" : ""}`} data-reveal>
+    {b.tall ? (
+      <div class="fig__scroll" tabindex="0" role="region" aria-label={`${b.image.alt}. Scroll to explore.`}>
+        <img src={b.image.src} alt={b.image.alt} width={b.image.w} height={b.image.h} loading="lazy" decoding="async" />
+      </div>
+    ) : (
+      <img src={b.image.src} alt={b.image.alt} width={b.image.w} height={b.image.h} loading="lazy" decoding="async" />
+    )}
+    <figcaption>
+      {b.caption ?? "Scroll inside the diagram to explore it."}
+      {b.tall && <a href={b.image.src} target="_blank" rel="noopener">Open full size ↗</a>}
+    </figcaption>
+  </figure>
+)}
+
+{b.t === "designsys" && <DesignSys {...b} />}
+{b.t === "screens" && !b.journey && <Screens {...b} />}
+{b.t === "screens" && b.journey && (["peri", "post"] as const).map((k) => (
+  <div class={`jr-screens jr-screens--${k}`}>
+    <h3 class="jr-screens__h" data-reveal><span>{journeys[k].label}</span> journey</h3>
+    <Screens device="phone" items={journeys[k].screens} />
+  </div>
+))}
+{b.t === "ecosystem" && <Ecosystem />}
+{b.t === "visual" && <Visual />}
+{b.t === "kit" && <Kit />}
+{b.t === "how" && <How />}
+{b.t === "sus" && <Sus />}
+{b.t === "journeys" && <Journeys />}

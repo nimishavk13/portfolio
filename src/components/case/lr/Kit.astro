@@ -1,0 +1,42 @@
+---
+/* The physical kit: tap-able hotspots on Nimisha's own photo, then box → planter. */
+const v = (n: string) => `/img/v2/${n}.webp`;
+const spots = [
+  { x: 25, y: 40, t: "Convertible packaging", d: "Doubles as a stable planting platform." },
+  { x: 53.5, y: 28.5, t: "Plant sensor", d: "Tracks temperature, humidity, soil moisture and light in real time." },
+  { x: 49, y: 64, t: "Planter", d: "A starter pot for sowing, growing and caring." },
+  { x: 80, y: 45, t: "App experience", d: "The plant’s live status, today’s quest and rewards." },
+  { x: 25, y: 80, t: "Seed packets", d: "Basil, cherry tomato, sunflower and mint." },
+  { x: 52.5, y: 80, t: "Soil pods", d: "Pre-measured, clean and easy to use." },
+  { x: 78, y: 80, t: "Instruction manual", d: "A simple, visual guide made for kids." },
+];
+const box = [
+  { img: v("lr-box1"), w: 447, h: 298, t: "Closed kit", d: "A compact, carry-friendly kit." },
+  { img: v("lr-box2"), w: 372, h: 407, t: "Unfold", d: "Opens into a stable base." },
+  { img: v("lr-box3"), w: 363, h: 367, t: "Plant & grow", d: "A ready setup to start planting right away." },
+];
+---
+<div class="kit">
+  <p class="b-lead" data-reveal>A connected plant-care experience for young gardeners. A tangible kit, a smart plant sensor and a playful app help children <strong>observe, understand and care for their plants from seed to harvest.</strong> Tap a pin to explore.</p>
+  <figure class="kit__photo" data-reveal="scale">
+    <img src={v("lr-kit")} alt="The Little Roots kit: ocean-themed box, whale planter with jellyfish sensor, tablet app, four seed packets, soil pods and a planting guide" width="1714" height="1019" loading="lazy" decoding="async" />
+    <ul role="list">
+      {spots.map((s, i) => (
+        <li class="spot" style={`left:${s.x}%;top:${s.y}%;--i:${i}`} data-spot>
+          <button type="button" aria-expanded="false" aria-describedby={`spot-${i}`}><span class="sr-only">{s.t}</span></button>
+          <span class="spot__tip" id={`spot-${i}`} role="tooltip"><b>{s.t}</b>{s.d}</span>
+        </li>
+      ))}
+    </ul>
+  </figure>
+  <h3 class="kit__h" data-reveal>From box to <mark class="hl">planter</mark></h3>
+  <ol class="kit__box" role="list">
+    {box.map((b, i) => (
+      <li data-reveal style={`--d:${i * 120}ms`}>
+        <img src={b.img} alt="" width={b.w} height={b.h} loading="lazy" />
+        <p><span>0{i + 1}</span><b>{b.t}</b>{b.d}</p>
+      </li>
+    ))}
+  </ol>
+  <p class="kit__note" data-reveal>All product photographs are of the physical kit, taken by me.</p>
+</div>

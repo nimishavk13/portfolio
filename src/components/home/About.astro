@@ -1,0 +1,82 @@
+---
+const soft = ["Problem Solving", "Critical Thinking", "Communication", "Collaboration", "Empathy", "Attention to Detail", "Conflict Management", "Adaptability"];
+const hard = ["User Research", "Usability Testing", "Journey Mapping", "Personas", "Information Architecture", "Wireframing", "Interaction Design", "Prototyping", "Card Sorting"];
+const tools = [
+  ["Figma", "tool-figma"], ["Illustrator", "tool-illustrator"], ["Photoshop", "tool-photoshop"],
+  ["Premiere Pro", "tool-premiere"], ["InDesign", "tool-indesign"], ["Miro", "tool-miro"],
+];
+---
+<section class="about" id="about" aria-labelledby="about-title" data-section="about">
+  <span class="about__wash" aria-hidden="true"></span>
+  <div class="wrap">
+    <h2 class="sec-title" id="about-title" data-reveal>About <span class="gw">me</span></h2>
+    <div class="trio">
+      <article class="panel panel--edu" data-panel>
+        <h3>Education</h3>
+        <div class="edu">
+          <p class="edu__k">Undergraduate (Pursuing)</p>
+          <p class="edu__t">Bachelor of Design – User Experience Design</p>
+          <p class="edu__s">Symbiosis Institute of Design, Pune</p>
+          <p class="edu__y">2023 – 2027</p>
+        </div>
+        <hr />
+        <div class="edu">
+          <p class="edu__k">Schooling</p>
+          <p class="edu__t">Higher Secondary – Science (CBSE)</p>
+          <p class="edu__s">Blossom Public School, Tathawade</p>
+          <p class="edu__y">2022 – 2023</p>
+        </div>
+      </article>
+
+      <article class="panel panel--skills" data-panel>
+        <h3>Skills</h3>
+        <h4><i aria-hidden="true"></i>Soft skills</h4>
+        <ul class="chips" role="list">{soft.map((s) => <li data-chip>{s}</li>)}</ul>
+        <hr />
+        <h4><i aria-hidden="true"></i>Hard skills</h4>
+        <ul class="chips" role="list">{hard.map((s) => <li data-chip>{s}</li>)}</ul>
+        <svg class="panel__cursor" viewBox="0 0 40 40" aria-hidden="true"><path d="M4 4l30 12-13 4-4 13z" /></svg>
+      </article>
+
+      <article class="panel panel--tools" data-panel>
+        <h3>Tools</h3>
+        <ul class="tools" role="list">
+          {tools.map(([n, f]) => (
+            <li data-tool><img src={`/img/home/${f}.webp`} alt="" width="72" height="72" loading="lazy" /><span>{n}</span></li>
+          ))}
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about { position: relative; overflow: hidden; padding-block: var(--section); }
+  .about__wash { position: absolute; right: -10vw; top: -10vw; width: 50vw; height: 40vw; background: radial-gradient(closest-side, rgba(118, 185, 255, 0.45), rgba(255, 255, 255, 0)); pointer-events: none; }
+  .trio { position: relative; display: grid; grid-template-columns: 1.05fr 1fr 0.85fr; gap: 22px; margin-top: 48px; align-items: stretch; }
+  .panel { position: relative; border-radius: var(--r-lg); padding: clamp(26px, 3vw, 40px); }
+  .panel h3 { font: 700 clamp(26px, 2.4vw, 34px)/1.1 var(--f-head); margin-bottom: 24px; }
+  .panel hr { border: 0; height: 1.5px; margin: 26px 0; }
+  .panel--edu { background: var(--grad-card); color: #fff; }
+  .panel--edu h3 { color: #fff; }
+  .panel--edu hr { background: rgba(255, 255, 255, 0.75); width: 80%; }
+  .edu__k { font: 400 17px/1.4 var(--f-head); opacity: 0.9; }
+  .edu__t { font: 700 18px/1.35 var(--f-head); margin: 4px 0; }
+  .edu__s, .edu__y { font: 400 16px/1.5 var(--f-head); opacity: 0.92; }
+  .panel--skills { background: var(--c-sky); }
+  .panel--skills hr { background: var(--c-blue); opacity: 0.6; }
+  .panel--skills h4 { display: flex; align-items: center; gap: 10px; font: 700 18px/1 var(--f-head); margin-bottom: 14px; }
+  .panel--skills h4 i { width: 12px; height: 12px; border-radius: 50%; background: var(--c-blue); }
+  .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips li { padding: 7px 14px; border-radius: var(--r-pill); background: #fff; font: 500 13.5px/1.2 var(--f-head); color: var(--c-blue); transition: transform var(--dur-fast) var(--ease-out), background var(--dur-fast), color var(--dur-fast); }
+  .chips li:hover { transform: translateY(-2px); background: var(--c-blue); color: #fff; }
+  .panel__cursor { position: absolute; right: 30px; bottom: -14px; width: 46px; fill: var(--c-blue); transform: rotate(8deg); }
+  .panel--tools { background: radial-gradient(120% 80% at 100% 60%, #1e3b78 0%, var(--c-navy) 60%); color: #fff; }
+  .panel--tools h3 { color: #fff; }
+  .tools { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .tools li { display: grid; justify-items: center; gap: 10px; padding: 18px 10px 14px; border-radius: 18px; background: rgba(255, 255, 255, 0.06); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08); font: 400 14px/1 var(--f-head); transition: transform 400ms var(--ease-out), background 400ms; }
+  .tools li:hover { transform: translateY(-4px) rotate(-2deg); background: rgba(255, 255, 255, 0.12); }
+  .tools img { width: 56px; height: 56px; border-radius: 12px; }
+  @media (max-width: 1000px) { .trio { grid-template-columns: 1fr 1fr; } .panel--tools { grid-column: span 2; } .tools { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+  @media (max-width: 680px) { .trio { grid-template-columns: 1fr; } .panel--tools { grid-column: auto; } .tools { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+</style>

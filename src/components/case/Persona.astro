@@ -1,0 +1,28 @@
+---
+import type { Col, Img } from "../../data/case-types";
+interface Props { tag: string; photo: Img; name: string; facts: [string, string][]; scenario: string; cols: Col[] }
+const { tag, photo, name, facts, scenario, cols } = Astro.props;
+const icon: Record<string, string> = {
+  pain: '<path d="M12 3v11"/><circle cx="12" cy="19.5" r="1.6" fill="currentColor" stroke="none"/>',
+  needs: '<rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 3.5h6v3H9zM8.5 11l1.5 1.5 3-3M8.5 16h7"/>',
+  goals: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/>',
+};
+---
+<article class={`persona persona--${cols.length}`}>
+  <p class="persona__tag" data-reveal>{tag}</p>
+  <p class="persona__scn" data-reveal><b>Scenario:</b> {scenario}</p>
+  <div class="persona__grid">
+    <div class="persona__id" data-persona-card>
+      <img src={photo.src} alt={photo.alt} width={photo.w} height={photo.h} loading="lazy" decoding="async" />
+      <h3>{name}</h3>
+      <dl>{facts.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+    </div>
+    {cols.map((c) => (
+      <div class="persona__col" data-persona-card>
+        {c.icon && <span class="persona__ic" aria-hidden="true"><svg viewBox="0 0 24 24" set:html={icon[c.icon]} /></span>}
+        <h4>{c.title}</h4>
+        <ul>{c.items.map((x) => <li>{x}</li>)}</ul>
+      </div>
+    ))}
+  </div>
+</article>

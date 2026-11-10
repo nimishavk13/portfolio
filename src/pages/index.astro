@@ -1,15 +1,19 @@
 ---
 import Base from "../layouts/Base.astro";
-import HomeHero from "../components/home/HomeHero.astro";
-import HomeWork from "../components/home/HomeWork.astro";
-import HomeAbout from "../components/home/HomeAbout.astro";
-import HomeProcess from "../components/home/HomeProcess.astro";
-import HomeContact from "../components/home/HomeContact.astro";
+import Hero from "../components/home/Hero.astro";
+import Work from "../components/home/Work.astro";
+import Process from "../components/home/Process.astro";
+import About from "../components/home/About.astro";
+import Contact from "../components/home/Contact.astro";
 ---
-<Base title="Nimisha VK – UI/UX Designer, Pune">
-  <HomeHero />
-  <HomeWork />
-  <HomeAbout />
-  <HomeProcess />
-  <HomeContact />
+<Base title="Nimisha Vk – UI/UX Designer, Pune">
+  <Hero />
+  <Work />
+  <Process />
+  <About />
+  <Contact />
+  <script>
+    import { initHome } from "../scripts/home";
+    initHome();
+  </script>
 </Base>

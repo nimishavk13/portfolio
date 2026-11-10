@@ -1,24 +1,23 @@
 # Nimisha Vk – UI/UX Portfolio
 
-Built from the Figma file *Nimisha VK_UI-UX Portfolio_Project 1*. Static site (Astro), hosted on Vercel.
+Static site built with Astro + GSAP, hosted on Vercel. Content comes from the portfolio PDF / Figma file.
 
-## Editing content
+## Where things live
 
 | What | Where |
 | --- | --- |
-| Homepage hero (frame 1) | `src/components/Hero.astro`, motion in `src/scripts/hero.ts` |
-| Intro / About / Process | `src/components/Intro.astro`, `About.astro`, `Process.astro` |
-| Selected work cards | `src/data/projects.ts` (titles, one-liners, images) |
-| Contact details / ending | `src/components/CaseEnding.astro` |
-| Case-study text | `src/data/cases/<project>.json` – each frame's `lines` (desktop) and `paras` (phones) |
-| Images | `public/img/…` |
+| Homepage sections (hero, work, process, about, contact) | `src/components/home/` |
+| Homepage scroll animation | `src/scripts/home.ts` |
+| Project cards, colours, cover text | `src/data/projects.ts` |
+| Case-study text (one file per project) | `src/data/cases/<project>.ts` |
+| Case-study layouts | `src/components/case/` and `src/styles/case.css` |
+| Colours, fonts, spacing | `src/styles/tokens.css` |
+| Images | `public/img/v2/` and `public/img/home/` |
 
-Edit a file on GitHub (pencil icon → *Commit changes*) and Vercel redeploys in about a minute.
+To fix wording, edit the sentence in `src/data/cases/<project>.ts` on GitHub (pencil icon → Commit changes). Vercel redeploys in about a minute.
+`**bold**` and `==highlight==` work inside case-study text.
 
-Case-study text comes straight from Figma (`tools/figma_text_*.json`): every text box with its exact
-characters, font, size, colour and position. For a small wording fix, edit the sentence in
-`src/data/cases/<project>.json`. For bigger Figma changes, re-export the text and re-run
-`tools/build_cases.py` (notes at the top of that file).
+Animations respect the visitor's "reduce motion" setting: everything still shows, it just doesn't move.
 
 ## Local preview
 

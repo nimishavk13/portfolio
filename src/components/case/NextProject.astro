@@ -1,0 +1,26 @@
+---
+import type { Project } from "../../data/projects";
+interface Props { project: Project }
+const { project: p } = Astro.props;
+---
+<section class="next" style={`--np:${p.color};--nps:${p.soft}`} aria-label="Next project">
+  <a class="next__a wrap" href={`/work/${p.slug}`}>
+    <span class="next__k">Next project · {String(p.n).padStart(2, "0")}</span>
+    <span class="next__row">
+      <span class="next__t">{p.title}</span>
+      <span class="next__arrow" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M4 10h12M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </span>
+    <span class="next__s">{p.summary}</span>
+    <img class="next__img" src={p.image} alt="" width="1400" height="900" loading="lazy" decoding="async" />
+  </a>
+</section>
+<section class="cta-band" aria-label="Contact">
+  <div class="wrap cta-band__in">
+    <p>If this work speaks to you, <span class="gw">I’d be glad to connect.</span></p>
+    <div class="cta-band__btns">
+      <a class="btn" href="mailto:nimishavkattutharayil@gmail.com">Email me</a>
+      <a class="btn btn--ghost" href="https://www.linkedin.com/in/nimisha-vijayraj" target="_blank" rel="noopener">LinkedIn<span class="sr-only"> (opens in a new tab)</span></a>
+      <a class="btn btn--ghost" href="https://www.behance.net/nimishavk" target="_blank" rel="noopener">Behance<span class="sr-only"> (opens in a new tab)</span></a>
+    </div>
+  </div>
+</section>

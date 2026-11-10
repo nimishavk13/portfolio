@@ -1,0 +1,66 @@
+---
+const steps = [
+  { t: "Empathize", d: "Understand people and context.", icon: "users" },
+  { t: "Define", d: "Frame the right problem.", icon: "target" },
+  { t: "Ideate", d: "Explore and shape ideas.", icon: "bulb" },
+  { t: "Prototype", d: "Make ideas tangible.", icon: "layers" },
+  { t: "Test", d: "Evaluate and improve.", icon: "check" },
+];
+const icons: Record<string, string> = {
+  users: '<circle cx="9" cy="8" r="3.5"/><path d="M3 19c.6-3.3 3-5 6-5s5.4 1.7 6 5"/><path d="M15.5 4.8a3.5 3.5 0 0 1 0 6.4M18 14.5c1.6.8 2.6 2.4 3 4.5"/>',
+  target: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>',
+  bulb: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/>',
+  layers: '<path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="m2 13 10 5 10-5"/>',
+  check: '<rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="m8 12 3 3 5-6"/>',
+};
+---
+<section class="process" id="process" aria-labelledby="process-title" data-section="process">
+  <span class="process__shape process__shape--a" aria-hidden="true"></span>
+  <span class="process__shape process__shape--b" aria-hidden="true"></span>
+  <div class="wrap">
+    <h2 class="sec-title" id="process-title" data-reveal>Design <span class="gw">Process</span></h2>
+    <div class="flow" data-flow>
+      <svg class="flow__line" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
+        <path data-flow-path pathLength="1" d="M60 120 C 140 120, 150 190, 260 190 S 380 110, 480 110 S 610 190, 720 190 S 850 110, 950 110" />
+      </svg>
+      <ol class="steps" role="list">
+        {steps.map((s, i) => (
+          <li class="step" data-step style={`--i:${i}`}>
+            <span class="step__icon" aria-hidden="true"><svg viewBox="0 0 24 24" set:html={icons[s.icon]} /></span>
+            <span class="step__n">0{i + 1} —</span>
+            <h3>{s.t}</h3>
+            <p>{s.d}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .process { position: relative; overflow: hidden; padding-block: var(--section); }
+  .process__shape { position: absolute; border-radius: 50%; pointer-events: none; }
+  .process__shape--a { width: 520px; height: 520px; right: -260px; top: 40px; background: linear-gradient(200deg, #bcd3fb, rgba(188, 211, 251, 0)); }
+  .process__shape--b { width: 360px; height: 360px; left: -220px; bottom: 0; background: linear-gradient(20deg, #c7dbfd, rgba(199, 219, 253, 0)); }
+  .flow { position: relative; margin-top: 56px; }
+  .flow__line { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .flow__line path { fill: none; stroke: var(--c-blue); stroke-width: 2; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 0; stroke-linecap: round; }
+  .steps { position: relative; list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; }
+  .step { position: relative; padding: 24px 22px 26px; border-radius: var(--r-lg); background: #dce8fb; box-shadow: inset 0 0 0 1px rgba(29, 89, 187, 0.06); transition: transform 500ms var(--ease-out), background 400ms; }
+  .step:nth-child(even) { margin-top: 110px; }
+  .step:nth-child(odd) { margin-bottom: 110px; }
+  .step:hover { transform: translateY(-6px); background: #d2e2fb; }
+  .step__icon { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%; background: #c9dbf8; margin-bottom: 22px; }
+  .step:nth-child(3) .step__icon { background: #b9d0f7; }
+  .step__icon svg { width: 26px; height: 26px; fill: none; stroke: #0d2855; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .step__n { display: block; font: 600 16px/1 var(--f-head); color: #2c5ca3; }
+  .step h3 { margin: 6px 0 6px; font: 700 clamp(20px, 1.8vw, 26px)/1.15 var(--f-head); }
+  .step p { color: #464d69; font-size: 16px; line-height: 1.45; }
+  @media (max-width: 900px) {
+    .flow__line { display: none; }
+    .steps { grid-template-columns: 1fr; gap: 14px; padding-left: 26px; border-left: 2px dashed #9bbcf0; }
+    .step:nth-child(n) { margin: 0; }
+    .step { display: grid; grid-template-columns: 54px 1fr; column-gap: 18px; align-items: center; padding: 18px; }
+    .step__icon { grid-row: span 3; margin: 0; }
+  }
+</style>
