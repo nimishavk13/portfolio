@@ -155,16 +155,17 @@ body:not(:has(.nav.is-hidden)) .snav { top: calc(var(--nav-h) - 2px); }
 .case--hormona .persona__tag { background: var(--ps); color: var(--pi); }
 .persona__scn { margin: 20px 0 28px; max-width: 54em; font: 400 italic clamp(17px, 1.4vw, 20px)/1.55 var(--f-head); color: var(--c-text); }
 .persona__scn b { font-style: normal; color: var(--p); margin-right: 6px; }
-.persona__grid { display: grid; grid-template-columns: minmax(0, 1fr) repeat(3, minmax(0, 1fr)); gap: 14px; }
-.persona--2 .persona__grid { grid-template-columns: minmax(0, 1fr) repeat(2, minmax(0, 1fr)); }
+.persona__grid { display: grid; grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr)); gap: 14px; }
+.persona--2 .persona__grid { grid-template-columns: minmax(0, 1.2fr) repeat(2, minmax(0, 1fr)); }
 .persona--0 .persona__grid { grid-template-columns: minmax(0, 320px); }
-.persona__id, .persona__col { position: relative; padding: 26px 26px 28px; border-radius: 24px; background: var(--ps); }
-.persona__id img { width: 70%; aspect-ratio: 1; object-fit: cover; object-position: top; border-radius: 22px; margin-bottom: 18px; }
+.persona__id, .persona__col { position: relative; padding: 26px 24px 28px; border-radius: 24px; background: var(--ps); }
+.persona__id img { display: block; width: 100%; max-width: 260px; aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 20%; border-radius: 20px; margin: 0 auto 20px; box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.65); }
 .persona__id h3 { font: 700 21px/1.2 var(--f-head); color: var(--pi); }
-.persona__id dl { display: grid; gap: 4px; margin-top: 10px; font: 400 15px/1.4 var(--f-head); }
-.persona__id dl div { display: grid; grid-template-columns: 96px 1fr; }
+.persona__id dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 12px; margin-top: 12px; font: 400 14.5px/1.4 var(--f-head); }
+.persona__id dl div { display: contents; }
 .persona__id dt { font-weight: 700; color: var(--pi); }
-.persona__id dd { margin: 0; }
+.persona__id dd { margin: 0; white-space: nowrap; }
+.persona__id dd::before { content: ": "; color: var(--pi); }
 .persona__ic { position: absolute; top: -18px; left: 22px; display: grid; place-items: center; width: 50px; height: 50px; border-radius: 16px; background: var(--p); color: #fff; box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.5); rotate: -6deg; }
 .persona__ic svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .persona__col h4 { font: 700 20px/1.2 var(--f-head); color: var(--pi); margin: 22px 0 14px; }

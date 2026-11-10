@@ -61,7 +61,7 @@ const study: CaseStudy = {
         },
         {
           t: "persona", tag: "Persona · Parent",
-          photo: { src: v("lr-ritu"), alt: "Ritu, a smiling woman in a denim shirt", w: 477, h: 470 },
+          photo: { src: v("lr-ritu"), alt: "Ritu, a smiling woman in a denim shirt", w: 777, h: 865 },
           name: "Ritu Shah", facts: [["Age", "38"], ["Location", "Pune"], ["Occupation", "IT Professional"]],
           scenario: "Ritu wants Kabir to become responsible for his plant, but limited time and her own lack of gardening knowledge often lead her to take over the care herself.",
           cols: [
