@@ -7,7 +7,7 @@ export type Block =
   | { t: "split"; heading: string; text?: string; image?: Img; items: { title: string; desc: string }[]; note?: string; reverse?: boolean }
   | { t: "quotes"; label: string; items: { q: string; who: string; avatar?: Img }[] }
   | { t: "insights"; label: string; image: Img; items: string[] }
-  | { t: "methods"; items: { title: string; text: string; icon?: Img; facts?: { k: string; v: string }[] }[] }
+  | { t: "methods"; items: { title: string; text: string; tag?: string; list?: string[]; icon?: Img; facts?: { k: string; v: string }[] }[] }
   | { t: "stats"; label: string; groups: { name: string; items: { v: string; l: string }[] }[] }
   | { t: "persona"; tag: string; photo: Img; name: string; facts: [string, string][]; scenario: string; cols: Col[]; switchKey?: string }
   | { t: "problem"; statement: string; extra?: string; hmw: string; image: Img }

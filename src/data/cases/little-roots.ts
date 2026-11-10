@@ -5,7 +5,7 @@ const study: CaseStudy = {
   slug: "little-roots",
   fonts: { display: "'Baloo 2', var(--f-head)", body: "'Mali', var(--f-body)" },
   theme: { pop: "#ea8a70", deep: "#1f3d26", tint: "#fbe9e4" },
-  facts: [["Role", "Individual project"], ["Duration", "2 months"], ["Domain", "Plant care"], ["Format", "Phygital product · kit + app"]],
+  facts: [["Role", "Collaborative research · Individual UI design"], ["Duration", "2 months"], ["Domain", "Plant care"], ["Format", "Phygital product · kit + app"]],
   sections: [
     {
       id: "overview", nav: "Overview", title: "Project overview",
@@ -17,7 +17,28 @@ const study: CaseStudy = {
       }],
     },
     {
-      id: "research", nav: "Research", title: "Research", sub: "Secondary research",
+      id: "team", nav: "Team & role", title: "Team collaboration & individual contribution",
+      blocks: [
+        { t: "lead", text: "Little Roots was a **collaborative academic project**. My teammate and I carried out the research and shaped the product direction together. We then **each designed our own UI independently**, building separate screen sets from the shared research, findings and concept. The interface work shown in this case study is my own screen set." },
+        {
+          t: "methods",
+          items: [
+            {
+              tag: "Done together", title: "Collaborative work",
+              text: "Shared with my teammate, from research to product direction.",
+              list: ["Secondary and primary research", "Field visits and nursery observations", "Research synthesis and analysis", "Problem identification and opportunity definition", "Concept exploration and product direction"],
+            },
+            {
+              tag: "Done by me", title: "My individual contribution",
+              text: "Built independently on top of the shared research and concept.",
+              list: ["Independent UI design and screen development", "Wireframing and high-fidelity interface design", "Individual interaction design and visual design decisions", "Development of my own screen set based on the shared research and concept"],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "research", nav: "Research", title: "Research", sub: "Secondary research · conducted as a team",
       blocks: [
         {
           t: "split",
@@ -34,7 +55,7 @@ const study: CaseStudy = {
       ],
     },
     {
-      id: "primary", nav: "Little gardeners", title: "Insights from little gardeners", sub: "Primary research",
+      id: "primary", nav: "Little gardeners", title: "Insights from little gardeners", sub: "Primary research · field visits and nursery observations as a team",
       blocks: [{
         t: "quotes", label: "Insights from little gardeners",
         items: [
@@ -46,7 +67,7 @@ const study: CaseStudy = {
       }],
     },
     {
-      id: "users", nav: "Users", title: "Understanding the user",
+      id: "users", nav: "Users", title: "Understanding the user", sub: "Personas from our shared research",
       blocks: [
         {
           t: "persona", tag: "Persona · Child, 9 years old",
@@ -73,7 +94,7 @@ const study: CaseStudy = {
       ],
     },
     {
-      id: "problem", nav: "Problem", title: "Problem statement",
+      id: "problem", nav: "Problem", title: "Problem statement", sub: "Defined together with my teammate",
       blocks: [{
         t: "problem",
         statement: "Children aged 5–12 need a **simple and engaging way to understand and practise everyday plant care** because current experiences teach them about plants but provide **limited opportunities for consistent, hands-on care and independent decision-making.**",
@@ -89,7 +110,7 @@ const study: CaseStudy = {
       ],
     },
     {
-      id: "ecosystem", nav: "Ecosystem", title: "Product ecosystem",
+      id: "ecosystem", nav: "Ecosystem", title: "Product ecosystem", sub: "Product concept developed as a team",
       blocks: [{ t: "ecosystem" }],
     },
     {
@@ -97,7 +118,7 @@ const study: CaseStudy = {
       blocks: [{ t: "visual" }],
     },
     {
-      id: "system", nav: "Design system", title: "Design system",
+      id: "system", nav: "Design system", title: "Design system", sub: "My individual UI work",
       blocks: [{
         t: "designsys",
         colors: [
@@ -108,10 +129,10 @@ const study: CaseStudy = {
       }],
     },
     {
-      id: "screens", nav: "Key screens", title: "Key screens", sub: "A guided journey from planting to harvesting",
+      id: "screens", nav: "Key screens", title: "Key screens", sub: "My screen set · a guided journey from planting to harvesting",
       blocks: [{
         t: "screens", device: "tablet",
-        intro: "A look at the key screens that bring Little Roots to life, helping children learn, care and grow with their plants through a playful and intuitive experience. The journey runs **Set up → Grow → Learn → Harvest.**",
+        intro: "A look at the key screens I designed to bring Little Roots to life, helping children learn, care and grow with their plants through a playful and intuitive experience. The journey runs **Set up → Grow → Learn → Harvest.**",
         items: [
           { src: v("lr-step-1"), alt: "Profile setup screen: Every captain needs a name", w: 405, h: 318, title: "Profile setup", desc: "A simple onboarding flow for parents and children to personalise their experience." },
           { src: v("lr-step-2"), alt: "Choose plant screen: What would you love to grow?", w: 405, h: 318, title: "Choose plant", desc: "Kids pick from a variety of easy-to-grow plants based on their interest." },

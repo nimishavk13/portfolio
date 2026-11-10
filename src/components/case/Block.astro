@@ -73,8 +73,10 @@ const arrow = '<svg viewBox="0 0 200 80" aria-hidden="true"><path d="M6 70 C 50 
     {b.items.map((m, i) => (
       <article class="method" data-reveal style={`--d:${i * 120}ms`}>
         {m.icon && <img class="method__icon" src={m.icon.src} alt="" width={m.icon.w} height={m.icon.h} loading="lazy" />}
+        {m.tag && <p class="method__tag">{m.tag}</p>}
         <h3>{m.title}<i aria-hidden="true"></i></h3>
         <p set:html={md(m.text)} />
+        {m.list && <ul class="method__list">{m.list.map((x) => <li>{x}</li>)}</ul>}
         {m.facts && <dl class="method__facts">{m.facts.map((f) => <div><dt>{f.k}</dt><dd>{f.v}</dd></div>)}</dl>}
       </article>
     ))}
